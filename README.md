@@ -7,8 +7,8 @@ This portfolio showcases my projects, skills, education, and contact information
 
 # 🌐 Live Demo
 
-Frontend: https://your-vercel-link.vercel.app  
-Backend API: https://your-render-link.onrender.com
+Frontend:https://portfolio-nu-mocha-89.vercel.app/
+Backend API:https://portfolio-kymh.onrender.com
 
 ---
 
