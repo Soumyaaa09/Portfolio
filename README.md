@@ -1,24 +1,28 @@
 # 🚀 Personal Portfolio Website
 
-A modern full-stack personal portfolio website built using **React.js, Node.js, Express.js, and MongoDB** to showcase projects, skills, education, and career goals with an interactive futuristic UI.
+A modern and responsive full-stack portfolio website built using React.js, Node.js, Express.js, and MongoDB Atlas.  
+This portfolio showcases my projects, skills, education, and contact information with a clean UI, smooth animations, and dynamic project management.
 
 ---
 
-# 🌟 Features
+# 🌐 Live Demo
 
-- ⚡ Modern Responsive UI
-- 🎨 Futuristic Dark Theme
-- ✨ Animated Gradient Background
-- 💫 Glassmorphism Design
-- 🌌 Animated Star Background
-- 🎭 Framer Motion Animations
-- 🖼️ Dynamic Project Cards
-- 📦 MongoDB Database Integration
-- 🔗 REST API using Express.js
-- 📱 Fully Responsive Design
-- 🧑‍💻 Dynamic Projects Section
-- 📬 Contact Form Backend Integration
-- 🌐 GitHub & LinkedIn Integration
+Frontend: https://your-vercel-link.vercel.app  
+Backend API: https://your-render-link.onrender.com
+
+---
+
+# ✨ Features
+
+- Modern responsive UI
+- Smooth animations using Framer Motion
+- Dynamic projects section from MongoDB
+- Full-stack MERN architecture
+- Contact form backend integration
+- MongoDB Atlas database connection
+- GitHub project links
+- Fully deployed using Vercel & Render
+- Dark futuristic UI design
 
 ---
 
@@ -30,15 +34,16 @@ A modern full-stack personal portfolio website built using **React.js, Node.js, 
 - Framer Motion
 - Axios
 - React Icons
-- React Parallax Tilt
 
 ## Backend
 - Node.js
 - Express.js
-
-## Database
 - MongoDB Atlas
 - Mongoose
+
+## Deployment
+- Vercel (Frontend)
+- Render (Backend)
 
 ---
 
@@ -51,102 +56,141 @@ Portfolio/
 │   ├── src/
 │   │   ├── assets/
 │   │   ├── components/
+│   │   ├── pages/
 │   │   ├── App.jsx
-│   │   └── index.css
+│   │   └── main.jsx
+│   │
+│   └── package.json
 │
 ├── server/
 │   ├── config/
+│   │   └── db.js
+│   │
 │   ├── controllers/
+│   │   ├── projectController.js
+│   │   └── messageController.js
+│   │
 │   ├── models/
+│   │   ├── Project.js
+│   │   └── Message.js
+│   │
 │   ├── routes/
-│   ├── .env
+│   │   ├── projectRoutes.js
+│   │   └── messageRoutes.js
+│   │
 │   ├── server.js
-│   └── seed.js
+│   └── package.json
 │
 └── README.md
+```
 
-⚙️ Installation
-1️⃣ Clone Repository
+---
+
+# ⚙️ Installation & Setup
+
+## 1️⃣ Clone Repository
+
+```bash
 git clone https://github.com/Soumyaaa09/Portfolio.git
-📦 Frontend Setup
+cd Portfolio
+```
+
+---
+
+# 🚀 Frontend Setup
+
+```bash
 cd client
-
 npm install
-
 npm run dev
+```
 
 Frontend runs on:
 
+```bash
 http://localhost:5173
-🖥️ Backend Setup
+```
+
+---
+
+# 🚀 Backend Setup
+
+```bash
 cd server
-
 npm install
-
 npm run dev
+```
 
 Backend runs on:
 
+```bash
 http://localhost:5000
-🔑 Environment Variables
+```
 
-Create a .env file inside server/
+---
 
+# 🔑 Environment Variables
+
+Create a `.env` file inside the `server` folder:
+
+```env
 MONGO_URI=your_mongodb_connection_string
 PORT=5000
-🗄️ MongoDB Setup
-Create MongoDB Atlas account
-Create cluster
-Add IP Access
-Create database user
-Copy connection string
-Paste into .env
-🌐 API Endpoints
-Get Projects
+```
+
+---
+
+# 📦 API Routes
+
+## Projects
+
+```bash
 GET /api/projects
-Send Contact Message
+```
+
+## Messages
+
+```bash
 POST /api/messages
-📸 Screenshots
-Home Page
-Animated hero section
-Typing animation
-Social media links
-Gradient glowing UI
-Projects Section
-3D tilt cards
-Dynamic MongoDB data
-Hover animations
-Project screenshots
-🎯 Career Goal
+```
 
-Aspiring Cloud Engineer focused on building scalable and efficient web applications using modern technologies.
+---
 
-👨‍🎓 Education
-BCA — Centurion University (2024 - 2027)
-12th Grade — K.V Danapur Cantt (2022)
-📈 Future Improvements
-Admin Dashboard
-Authentication System
-Blog Section
-Dark/Light Theme Toggle
-Deployment with Vercel & Render
-Email Notifications
-AI Chatbot Integration
-🔗 Social Links
-GitHub
+# 📸 Screenshots
 
-https://github.com/Soumyaaa09
+## Home Page
+Modern animated hero section with futuristic UI.
 
-LinkedIn
+## Projects Section
+Dynamic projects fetched from MongoDB Atlas.
 
-https://www.linkedin.com/in/soumyarout048
+## Contact Section
+Functional contact form connected to backend.
 
-👨‍💻 Author
+---
 
-SOUMYA RANJAN ROUT
+# 👨‍💻 Author
 
-Detail-oriented BCA student with strong software development foundations, seeking an entry-level role to apply programming skills and contribute to real-world projects in a dynamic environment.
+## Soumya Ranjan Rout
 
-⭐ If you like this project
+- BCA Student
+- Aspiring Cloud Engineer
+- Full Stack Developer
 
-Give it a ⭐ on GitHub and support the project 🚀
+GitHub: https://github.com/Soumyaaa09
+
+---
+
+# ⭐ Future Improvements
+
+- Admin dashboard
+- Blog section
+- Authentication
+- 3D interactive models
+- AWS cloud integration
+
+---
+
+# 📜 License
+
+This project is open source and available under the MIT License.
