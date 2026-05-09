@@ -86,22 +86,25 @@ function Projects() {
     fetchProjects();
   }, []);
 
-  const fetchProjects = async () => {
-    try {
-      const res = await axios.get(
-        "https://portfolio-kymh.onrender.com/api/projects"
-      );
+ const fetchProjects = async () => {
+  try {
+    const res = await axios.get(
+      "https://portfolio-kymh.onrender.com/api/projects"
+    );
 
-      if (Array.isArray(res.data) && res.data.length > 0) {
-        setProjects(res.data);
-      } else {
-        setProjects(fallbackProjects);
-      }
-    } catch (error) {
-      console.error("Error fetching projects:", error);
+    if (Array.isArray(res.data)) {
+      setProjects(res.data);
+    } else if (Array.isArray(res.data.projects)) {
+      setProjects(res.data.projects);
+    } else {
       setProjects(fallbackProjects);
     }
-  };
+  } catch (error) {
+    console.error("Error fetching projects:", error);
+
+    setProjects(fallbackProjects);
+  }
+};
 
   const featured =
     projects.find((p) => p.featured) || projects[0];
