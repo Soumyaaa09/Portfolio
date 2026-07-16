@@ -76,34 +76,6 @@ const fallbackProjects = [
     tag: "Cloud",
   },
   {
-    _id: "4",
-    title: "Modern Blog Platform",
-    description:
-      "Full-stack content publishing platform featuring rich text creation, user authentication, markdown rendering, and interactive commenting system built for speed and SEO optimization.",
-    tech: "React.js • Node.js • Express • MongoDB • JWT • Tailwind CSS",
-    image: "blog_platform.png",
-    github: "https://github.com/Soumyaaa09/Blog-Platform",
-    live: "",
-    featured: false,
-    stars: 9,
-    forks: 2,
-    tag: "Full Stack",
-  },
-  {
-    _id: "5",
-    title: "E-Commerce Platform",
-    description:
-      "Scalable online shopping application featuring dynamic shopping carts, multi-category product filtering, secure checkout workflow, order status tracking, and admin dashboard.",
-    tech: "React.js • Redux Toolkit • Node.js • Express • MongoDB • Stripe",
-    image: "ecommerce_platform.png",
-    github: "https://github.com/Soumyaaa09/E-Commerce-Platform",
-    live: "",
-    featured: false,
-    stars: 11,
-    forks: 3,
-    tag: "Full Stack",
-  },
-  {
     _id: "6",
     title: "Task Management Suite",
     description:
@@ -234,7 +206,11 @@ const mergeWithFallback = (apiList) => {
   if (!Array.isArray(apiList) || apiList.length === 0) {
     return normalizeProjects(fallbackProjects);
   }
-  const normalizedApi = normalizeProjects(apiList);
+  const filteredApi = apiList.filter((p) => {
+    const lower = (p.title || "").toLowerCase();
+    return !lower.includes("blog platform") && !lower.includes("e-commerce") && !lower.includes("ecommerce");
+  });
+  const normalizedApi = normalizeProjects(filteredApi);
   const apiTitles = new Set(
     normalizedApi.map((p) => (p.title || "").toLowerCase().trim())
   );
