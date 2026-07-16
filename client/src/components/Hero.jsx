@@ -1,467 +1,1104 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { FaGithub, FaLinkedin, FaEnvelope, FaDownload, FaArrowRight } from "react-icons/fa";
+import { FaReact, FaNodeJs, FaAws } from "react-icons/fa";
+import { SiMongodb, SiExpress } from "react-icons/si";
 import { Typewriter } from "react-simple-typewriter";
+import Tilt from "react-parallax-tilt";
 
 function Hero() {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const planetY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  const gridY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
+
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouse = (e) => {
+      setMousePos({
+        x: (e.clientX / window.innerWidth - 0.5) * 2,
+        y: (e.clientY / window.innerHeight - 0.5) * 2,
+      });
+    };
+    window.addEventListener("mousemove", handleMouse);
+    return () => window.removeEventListener("mousemove", handleMouse);
+  }, []);
+
+  const techStack = [
+    { icon: <FaReact />, label: "React", color: "#61dafb" },
+    { icon: <FaNodeJs />, label: "Node", color: "#68a063" },
+    { icon: <SiMongodb />, label: "Mongo", color: "#4db33d" },
+    { icon: <SiExpress />, label: "Express", color: "#ffffff" },
+    { icon: <FaAws />, label: "AWS", color: "#ff9900" },
+  ];
 
   return (
-    <section ref={ref} className="hs">
-      {/* Stars */}
-      <div className="hs-stars s1" />
-      <div className="hs-stars s2" />
-      <div className="hs-stars s3" />
+    <section ref={ref} className="hero3d">
+      {/* ──── BACKGROUND LAYERS ──── */}
+      {/* Background animations moved to Background.jsx */}
 
-      {/* Shooting stars */}
-      {[1,2,3,4].map(i => <div key={i} className={`hs-shoot shoot${i}`} />)}
-
-      {/* Planet */}
-      <motion.div className="hs-planet-wrap" style={{ y: planetY }}>
-        <div className="hs-planet">
-          <div className="hs-planet-surface" />
-          <div className="hs-planet-ring" />
-          <div className="hs-planet-ring hs-planet-ring2" />
-          <div className="hs-planet-glow" />
-          <div className="hs-planet-shine" />
+      {/* 3D Floating geometric shapes */}
+      <div className="h3-shapes" style={{
+        transform: `translate(${mousePos.x * 8}px, ${mousePos.y * 8}px)`,
+      }}>
+        <div className="h3-shape h3-cube">
+          <div className="cube-face front" />
+          <div className="cube-face back" />
+          <div className="cube-face left" />
+          <div className="cube-face right" />
+          <div className="cube-face top" />
+          <div className="cube-face bottom" />
         </div>
+        <div className="h3-shape h3-ring" />
+        <div className="h3-shape h3-ring2" />
+        <div className="h3-shape h3-sphere" />
+        <div className="h3-shape h3-octahedron">
+          <div className="octa-face o1" />
+          <div className="octa-face o2" />
+          <div className="octa-face o3" />
+          <div className="octa-face o4" />
+        </div>
+        <div className="h3-shape h3-pyramid">
+          <div className="pyr-face pf1" />
+          <div className="pyr-face pf2" />
+          <div className="pyr-face pf3" />
+          <div className="pyr-face pf4" />
+          <div className="pyr-base" />
+        </div>
+      </div>
+
+
+
+      {/* ──── MAIN CONTENT ──── */}
+      <motion.div className="h3-content" style={{ y: contentY, opacity }}>
+        {/* Left Sidebar Panel - Fills the far left area circled by user */}
+        <motion.div
+          className="h3-side-panel h3-left-panel"
+          initial={{ opacity: 0, x: -40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+        >
+          <div className="h3-side-card">
+            <div className="h3-side-header">
+              <span className="h3-side-title">⚡ Cloud Infra Node</span>
+              <span className="h3-side-badge green">Online</span>
+            </div>
+            <p className="h3-side-desc">
+              Deploying low-latency microservices & IoT gateways across AWS Regions.
+            </p>
+            <div className="h3-side-metrics">
+              <span>Region: <span className="h3-metric-val">ap-south-1</span></span>
+              <span>Ping: <span className="h3-metric-val">18ms</span></span>
+            </div>
+          </div>
+
+          <div className="h3-side-card">
+            <div className="h3-side-header">
+              <span className="h3-side-title">🐍 Python Automation</span>
+              <span className="h3-side-badge">v3.11+</span>
+            </div>
+            <p className="h3-side-desc">
+              Automating data pipelines, REST APIs, & web scrapers with FastAPI and Pandas.
+            </p>
+            <div className="h3-side-metrics">
+              <span>Pipelines: <span className="h3-metric-val">Active</span></span>
+              <span>ETL: <span className="h3-metric-val">100% Sync</span></span>
+            </div>
+          </div>
+
+          <div className="h3-side-card">
+            <div className="h3-side-header">
+              <span className="h3-side-title">🛡️ Database & Auth</span>
+              <span className="h3-side-badge">Secure</span>
+            </div>
+            <p className="h3-side-desc">
+              Structured SQL/NoSQL schemas with Supabase, MongoDB, & JWT encryption.
+            </p>
+            <div className="h3-side-metrics">
+              <span>Cluster: <span className="h3-metric-val">Healthy</span></span>
+              <span>Uptime: <span className="h3-metric-val">99.9%</span></span>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Left side – text */}
+        <div className="h3-text">
+          {/* Status badge */}
+          <motion.div
+            className="h3-status"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            <span className="h3-status-dot" />
+            <span>Available for Opportunities</span>
+          </motion.div>
+
+          <motion.p
+            className="h3-hi"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            Hi, I'm
+          </motion.p>
+
+          <div className="h3-name-block">
+            <motion.span
+              className="h3-name-line1"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.35 }}
+            >
+              SOUMYA
+            </motion.span>
+            <motion.span
+              className="h3-name-line2"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.5 }}
+            >
+              RANJAN ROUT
+            </motion.span>
+          </div>
+
+          <motion.div
+            className="h3-role"
+            initial={{ opacity: 0, x: -16 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.65 }}
+          >
+            <span className="h3-role-divider" />
+            <span className="h3-typewriter">
+              <Typewriter
+                words={["Aspiring Cloud Engineer", "Full Stack Developer", "Python & Cloud Enthusiast", "IoT & Backend Developer"]}
+                loop={true}
+                cursor
+                cursorStyle="|"
+                typeSpeed={75}
+                deleteSpeed={45}
+                delaySpeed={1400}
+              />
+            </span>
+          </motion.div>
+
+          <motion.p
+            className="h3-bio"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.75 }}
+          >
+            Detail-oriented BCA student with hands-on experience building backend systems,
+            cloud-connected IoT applications, and automated data pipelines using Python.
+            Seeking an entry-level Cloud Engineer role to apply scripting, systems, and
+            problem-solving skills toward scalable, secure cloud infrastructure.
+          </motion.p>
+
+          <motion.div
+            className="h3-btns"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.88 }}
+          >
+            <a
+              href="https://drive.google.com/file/d/1CgenTNe73eF-oHZ7yBV45m0ePDPfiP8o/view?usp=drive_link"
+              target="_blank"
+              rel="noreferrer"
+              className="h3-btn-glow"
+            >
+              <span className="h3-btn-bg" />
+              <FaDownload size={13} /> Download Resume
+            </a>
+            <a href="#projects" className="h3-btn-outline">
+              View Projects <FaArrowRight size={13} />
+            </a>
+          </motion.div>
+
+          <motion.div
+            className="h3-socials"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1 }}
+          >
+            <a href="https://github.com/Soumyaaa09" target="_blank" rel="noreferrer" className="h3-social">
+              <FaGithub size={18} />
+            </a>
+            <a href="https://www.linkedin.com/in/soumyarout048" target="_blank" rel="noreferrer" className="h3-social">
+              <FaLinkedin size={18} />
+            </a>
+            <a href="mailto:rsoumyaranjan214@gmail.com" className="h3-social">
+              <FaEnvelope size={18} />
+            </a>
+          </motion.div>
+        </div>
+
+        {/* Right side – 3D tilt card */}
+        <motion.div
+          className="h3-card-area"
+          initial={{ opacity: 0, scale: 0.85, rotateY: 15 }}
+          animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+          transition={{ duration: 0.9, delay: 0.5, ease: "easeOut" }}
+        >
+          <Tilt
+            tiltMaxAngleX={12}
+            tiltMaxAngleY={12}
+            perspective={900}
+            scale={1.02}
+            transitionSpeed={800}
+            glareEnable={true}
+            glareMaxOpacity={0.15}
+            glareColor="#8b5cf6"
+            glarePosition="all"
+            className="h3-tilt-wrap"
+          >
+            <div className="h3-card-glass">
+              <div className="h3-card-shine" />
+              <div className="h3-card-inner">
+                {/* Code window header */}
+                <div className="h3-card-header">
+                  <div className="h3-dots">
+                    <span className="dot-r" />
+                    <span className="dot-y" />
+                    <span className="dot-g" />
+                  </div>
+                  <span className="h3-card-filename">portfolio.tsx</span>
+                </div>
+
+                {/* Fake code block */}
+                <div className="h3-code">
+                  <div className="h3-code-line">
+                    <span className="ck">const</span> <span className="cv">engineer</span> <span className="co">=</span> <span className="cb">{'{'}</span>
+                  </div>
+                  <div className="h3-code-line indent">
+                    <span className="cp">name</span><span className="co">:</span> <span className="cs">"Soumya Ranjan"</span><span className="co">,</span>
+                  </div>
+                  <div className="h3-code-line indent">
+                    <span className="cp">role</span><span className="co">:</span> <span className="cs">"Cloud Engineer"</span><span className="co">,</span>
+                  </div>
+                  <div className="h3-code-line indent">
+                    <span className="cp">stack</span><span className="co">:</span> <span className="cs">"Python • React • AWS"</span><span className="co">,</span>
+                  </div>
+                  <div className="h3-code-line indent">
+                    <span className="cp">passion</span><span className="co">:</span> <span className="cs">"IoT & Cloud Infra"</span>
+                  </div>
+                  <div className="h3-code-line">
+                    <span className="cb">{'}'}</span><span className="co">;</span>
+                  </div>
+                  <div className="h3-code-line mt">
+                    <span className="ck">export default</span> <span className="cv">engineer</span><span className="co">;</span>
+                  </div>
+                </div>
+
+                {/* Terminal output */}
+                <div className="h3-terminal">
+                  <span className="h3-term-prompt">❯</span>
+                  <span className="h3-term-cmd"> python deploy_cloud_infra.py</span>
+                  <div className="h3-term-cursor" />
+                </div>
+              </div>
+            </div>
+          </Tilt>
+
+          {/* Tech orbit icons */}
+          <div className="h3-orbit">
+            {techStack.map((tech, i) => (
+              <div
+                key={tech.label}
+                className="h3-orbit-icon"
+                style={{
+                  "--orbit-delay": `${i * -3}s`,
+                  "--orbit-color": tech.color,
+                }}
+                title={tech.label}
+              >
+                {tech.icon}
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Right Sidebar Panel - Fills the far right area circled by user */}
+        <motion.div
+          className="h3-side-panel h3-right-panel"
+          initial={{ opacity: 0, x: 40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+        >
+          <div className="h3-side-card">
+            <div className="h3-side-header">
+              <span className="h3-side-title">🧠 AI & ML Engine</span>
+              <span className="h3-side-badge green">Gemini AI</span>
+            </div>
+            <p className="h3-side-desc">
+              Integrating LLM resume scoring (NextStep AI) and Scikit-Learn regression models.
+            </p>
+            <div className="h3-side-metrics">
+              <span>ATS Score: <span className="h3-metric-val">94%</span></span>
+              <span>Models: <span className="h3-metric-val">Active</span></span>
+            </div>
+          </div>
+
+          <div className="h3-side-card">
+            <div className="h3-side-header">
+              <span className="h3-side-title">📦 GitHub Stats</span>
+              <span className="h3-side-badge">Soumyaaa09</span>
+            </div>
+            <p className="h3-side-desc">
+              Consistent open-source contributions, modular clean code & CI/CD workflows.
+            </p>
+            <div className="h3-side-metrics">
+              <span>Commits: <span className="h3-metric-val">450+</span></span>
+              <span>Repos: <span className="h3-metric-val">7 Featured</span></span>
+            </div>
+          </div>
+
+          <div className="h3-side-card">
+            <div className="h3-side-header">
+              <span className="h3-side-title">🚀 Full Stack Synergy</span>
+              <span className="h3-side-badge">React + Node</span>
+            </div>
+            <p className="h3-side-desc">
+              Pixel-perfect glassmorphic UIs powered by Express REST APIs and Socket.io.
+            </p>
+            <div className="h3-side-metrics">
+              <span>Frontend: <span className="h3-metric-val">Vite</span></span>
+              <span>State: <span className="h3-metric-val">Redux</span></span>
+            </div>
+          </div>
+        </motion.div>
       </motion.div>
 
-      {/* Content */}
-      <motion.div className="hs-content" style={{ y: contentY, opacity }}>
-        <motion.p
-          className="hs-hi"
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          Hi, I'm
-        </motion.p>
-
-        <div className="hs-name-block">
-          <motion.span
-            className="hs-name-white"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.35 }}
-          >
-            SOUMYA
-          </motion.span>
-          <motion.span
-            className="hs-name-grad"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-          >
-            RANJAN ROUT
-          </motion.span>
-        </div>
-
-        <motion.div
-          className="hs-role"
-          initial={{ opacity: 0, x: -16 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.65 }}
-        >
-          <span className="hs-role-icon">☁</span>
-          <span className="hs-typewriter">
-            <Typewriter
-              words={["Aspiring Cloud Engineer","Full Stack Developer","React Developer","BCA Student"]}
-              loop={true} cursor cursorStyle="|"
-              typeSpeed={75} deleteSpeed={45} delaySpeed={1400}
-            />
-          </span>
-        </motion.div>
-
-        <motion.p
-          className="hs-bio"
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.75 }}
-        >
-          Detail-oriented BCA student with strong software development foundations,
-          seeking an entry-level role to apply programming skills and contribute
-          to real-world projects in a dynamic environment.
-        </motion.p>
-
-        <motion.div
-          className="hs-btns"
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.88 }}
-        >
-          <a href="https://drive.google.com/file/d/1CgenTNe73eF-oHZ7yBV45m0ePDPfiP8o/view?usp=drive_link"
-            target="_blank" rel="noreferrer" className="hs-btn-primary">
-            <FaDownload size={13} /> Download Resume
-          </a>
-          <a href="#projects" className="hs-btn-outline">
-            View Projects <FaArrowRight size={13} />
-          </a>
-        </motion.div>
-
-        <motion.div
-          className="hs-socials"
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1 }}
-        >
-          <a href="https://github.com/Soumyaaa09" target="_blank" rel="noreferrer" className="hs-social">
-            <FaGithub size={18} />
-          </a>
-          <a href="https://www.linkedin.com/in/soumyarout048" target="_blank" rel="noreferrer" className="hs-social">
-            <FaLinkedin size={18} />
-          </a>
-          <a href="mailto:soumyarout048@gmail.com" className="hs-social">
-            <FaEnvelope size={18} />
-          </a>
-        </motion.div>
-      </motion.div>
-
-      {/* Scroll hint */}
+      {/* Enhanced scroll indicator */}
       <motion.div
-        className="hs-scroll"
+        className="h3-scroll"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.4 }}
+        transition={{ delay: 1.5 }}
         style={{ opacity }}
       >
-        <div className="hs-scroll-mouse"><div className="hs-scroll-dot" /></div>
-        <span>Scroll Down</span>
+        <div className="h3-scroll-line" />
+        <span>SCROLL</span>
+        <div className="h3-scroll-chevrons">
+          <div className="h3-chevron" />
+          <div className="h3-chevron" />
+          <div className="h3-chevron" />
+        </div>
       </motion.div>
 
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
 
-        .hs {
+        /* ═══════ SECTION ═══════ */
+        .hero3d {
           position: relative;
           height: 100vh;
-          min-height: 600px;
+          min-height: 700px;
           display: flex;
           align-items: center;
           overflow: hidden;
-          background:
-            radial-gradient(ellipse 70% 60% at 80% 50%, rgba(88,28,220,0.2) 0%, transparent 60%),
-            radial-gradient(ellipse 50% 50% at 15% 85%, rgba(37,99,235,0.15) 0%, transparent 55%),
-            linear-gradient(160deg, #020617 0%, #04091c 60%, #0f172a 100%);
+          background: transparent;
+          perspective: 1200px;
+          z-index: 1;
         }
 
-        .hs-stars {
+
+
+        /* ═══════ 3D FLOATING SHAPES ═══════ */
+        .h3-shapes {
           position: absolute;
           inset: 0;
           pointer-events: none;
+          perspective: 800px;
+          transition: transform 0.3s ease-out;
         }
-        .s1 {
-          background-image: radial-gradient(rgba(255,255,255,0.9) 1px, transparent 1px);
-          background-size: 90px 90px;
-          opacity: 0.1;
-          animation: starDrift 90s linear infinite;
-        }
-        .s2 {
-          background-image: radial-gradient(rgba(165,180,252,0.8) 1px, transparent 1px);
-          background-size: 160px 160px;
-          background-position: 40px 40px;
-          opacity: 0.08;
-          animation: starDrift 130s linear infinite reverse;
-        }
-        .s3 {
-          background-image: radial-gradient(rgba(196,181,253,0.7) 1px, transparent 1px);
-          background-size: 220px 220px;
-          background-position: 80px 80px;
-          opacity: 0.06;
-          animation: starDrift 110s linear infinite;
-        }
-        @keyframes starDrift {
-          from { transform: translateY(0); }
-          to   { transform: translateY(-600px); }
+        .h3-shape {
+          position: absolute;
         }
 
-        .hs-shoot {
-          position: absolute;
-          width: 1.5px;
-          height: 70px;
-          background: linear-gradient(to bottom, rgba(255,255,255,0.95), transparent);
-          border-radius: 99px;
-          opacity: 0;
+        /* ── Cube ── */
+        .h3-cube {
+          width: 40px; height: 40px;
+          top: 18%; right: 22%;
+          transform-style: preserve-3d;
+          animation: shapeSpin 15s linear infinite;
         }
-        .shoot1 { top: 10%; right: 28%; transform: rotate(35deg); animation: shoot 5s 1s infinite; }
-        .shoot2 { top: 22%; right: 52%; transform: rotate(35deg); animation: shoot 7s 3.5s infinite; }
-        .shoot3 { top: 6%;  right: 42%; transform: rotate(35deg); animation: shoot 6s 5.5s infinite; }
-        .shoot4 { top: 35%; right: 35%; transform: rotate(35deg); animation: shoot 8s 2s infinite; }
-        @keyframes shoot {
-          0%   { opacity: 0; transform: rotate(35deg) translateY(-40px); }
-          8%   { opacity: 1; }
-          45%  { opacity: 0; transform: rotate(35deg) translateY(140px); }
-          100% { opacity: 0; }
+        .cube-face {
+          position: absolute;
+          width: 40px; height: 40px;
+          border: 1.5px solid rgba(99,102,241,0.35);
+          background: rgba(99,102,241,0.06);
+          backdrop-filter: blur(2px);
+        }
+        .cube-face.front  { transform: translateZ(20px); }
+        .cube-face.back   { transform: rotateY(180deg) translateZ(20px); }
+        .cube-face.left   { transform: rotateY(-90deg) translateZ(20px); }
+        .cube-face.right  { transform: rotateY(90deg) translateZ(20px); }
+        .cube-face.top    { transform: rotateX(90deg) translateZ(20px); }
+        .cube-face.bottom { transform: rotateX(-90deg) translateZ(20px); }
+        @keyframes shapeSpin {
+          from { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+          to   { transform: rotateX(360deg) rotateY(360deg) rotateZ(180deg); }
         }
 
-        .hs-planet-wrap {
-          position: absolute;
-          right: 4%;
-          top: 50%;
-          transform: translateY(-50%);
-          width: 44vw;
-          max-width: 520px;
-          min-width: 300px;
-          aspect-ratio: 1;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          pointer-events: none;
-        }
-        .hs-planet {
-          position: relative;
-          width: 75%;
-          aspect-ratio: 1;
-          animation: planetFloat 7s ease-in-out infinite;
-        }
-        .hs-planet-surface {
-          width: 100%;
-          height: 100%;
+        /* ── Rings ── */
+        .h3-ring {
+          width: 70px; height: 70px;
+          top: 65%; right: 35%;
+          border: 2px solid rgba(139,92,246,0.3);
           border-radius: 50%;
-          background: radial-gradient(circle at 32% 30%,
-            #9333ea 0%, #7c3aed 18%, #5b21b6 38%, #2e1065 65%, #0d0825 100%
-          );
-          box-shadow:
-            inset -25px -18px 55px rgba(0,0,0,0.65),
-            inset 18px 12px 35px rgba(147,51,234,0.35),
-            0 0 55px rgba(139,92,246,0.55),
-            0 0 110px rgba(139,92,246,0.28),
-            0 0 180px rgba(99,102,241,0.15);
-          position: relative;
-          overflow: hidden;
+          transform-style: preserve-3d;
+          animation: ringOrbit 10s linear infinite;
+          box-shadow: 0 0 15px rgba(139,92,246,0.15), inset 0 0 15px rgba(139,92,246,0.08);
         }
-        .hs-planet-surface::before {
-          content: '';
-          position: absolute;
-          inset: 0;
+        .h3-ring2 {
+          width: 50px; height: 50px;
+          top: 30%; left: 8%;
+          border: 1.5px solid rgba(59,130,246,0.25);
           border-radius: 50%;
-          background-image:
-            radial-gradient(rgba(255,255,255,0.6) 1px, transparent 1px),
-            radial-gradient(rgba(255,255,255,0.3) 1px, transparent 1px);
-          background-size: 16px 16px, 28px 28px;
-          background-position: 0 0, 8px 8px;
-          opacity: 0.1;
+          animation: ringOrbit 14s linear infinite reverse;
+          box-shadow: 0 0 12px rgba(59,130,246,0.12);
         }
-        .hs-planet-shine {
-          position: absolute;
-          top: 9%; left: 13%;
-          width: 36%; height: 28%;
-          border-radius: 50%;
-          background: radial-gradient(ellipse, rgba(255,255,255,0.2) 0%, transparent 70%);
-        }
-        .hs-planet-ring {
-          position: absolute;
-          top: 50%; left: 50%;
-          transform: translate(-50%, -50%) rotateX(73deg);
-          width: 155%;
-          aspect-ratio: 1;
-          border-radius: 50%;
-          border: 2px solid rgba(99,202,246,0.55);
-          box-shadow: 0 0 14px rgba(99,202,246,0.35), 0 0 35px rgba(99,202,246,0.18);
-        }
-        .hs-planet-ring2 {
-          width: 143%;
-          border-color: rgba(168,85,247,0.3);
-          box-shadow: none;
-        }
-        .hs-planet-glow {
-          position: absolute;
-          top: 50%; left: 50%;
-          transform: translate(-50%,-50%);
-          width: 140%; aspect-ratio: 1;
-          border-radius: 50%;
-          background: radial-gradient(circle, rgba(139,92,246,0.22) 0%, transparent 68%);
-          filter: blur(18px);
-          animation: glowPulse 4s ease-in-out infinite alternate;
-        }
-        @keyframes planetFloat {
-          0%,100% { transform: translateY(0) rotate(0deg); }
-          50%      { transform: translateY(-16px) rotate(0.8deg); }
-        }
-        @keyframes glowPulse {
-          from { opacity: 0.55; transform: translate(-50%,-50%) scale(1); }
-          to   { opacity: 1;   transform: translate(-50%,-50%) scale(1.1); }
+        @keyframes ringOrbit {
+          from { transform: rotateX(70deg) rotateZ(0deg); }
+          to   { transform: rotateX(70deg) rotateZ(360deg); }
         }
 
-        .hs-content {
+        /* ── Sphere ── */
+        .h3-sphere {
+          width: 28px; height: 28px;
+          top: 75%; left: 15%;
+          border-radius: 50%;
+          background: radial-gradient(circle at 35% 30%, rgba(168,85,247,0.5), rgba(99,102,241,0.2) 60%, transparent 80%);
+          box-shadow: 0 0 20px rgba(168,85,247,0.3), inset -4px -4px 8px rgba(0,0,0,0.3);
+          animation: sphereBob 6s ease-in-out infinite;
+        }
+        @keyframes sphereBob {
+          0%, 100% { transform: translateY(0) scale(1); }
+          50%      { transform: translateY(-18px) scale(1.1); }
+        }
+
+        /* ── Octahedron ── */
+        .h3-octahedron {
+          width: 30px; height: 30px;
+          top: 50%; left: 5%;
+          transform-style: preserve-3d;
+          animation: shapeSpin 20s linear infinite reverse;
+        }
+        .octa-face {
+          position: absolute;
+          width: 0; height: 0;
+          border-left: 15px solid transparent;
+          border-right: 15px solid transparent;
+          border-bottom: 26px solid rgba(52,211,153,0.15);
+          filter: drop-shadow(0 0 4px rgba(52,211,153,0.2));
+        }
+        .o1 { transform: rotateX(0deg) translateZ(10px); }
+        .o2 { transform: rotateY(90deg) translateZ(10px); }
+        .o3 { transform: rotateY(180deg) translateZ(10px); }
+        .o4 { transform: rotateY(270deg) translateZ(10px); }
+
+        /* ── Pyramid ── */
+        .h3-pyramid {
+          width: 35px; height: 35px;
+          top: 22%; left: 18%;
+          transform-style: preserve-3d;
+          animation: shapeSpin 18s linear infinite;
+          animation-delay: -5s;
+        }
+        .pyr-face {
+          position: absolute;
+          width: 0; height: 0;
+          border-left: 17px solid transparent;
+          border-right: 17px solid transparent;
+          border-bottom: 30px solid rgba(251,146,60,0.12);
+        }
+        .pf1 { transform: rotateY(0deg)   translateZ(12px) rotateX(30deg); }
+        .pf2 { transform: rotateY(90deg)  translateZ(12px) rotateX(30deg); }
+        .pf3 { transform: rotateY(180deg) translateZ(12px) rotateX(30deg); }
+        .pf4 { transform: rotateY(270deg) translateZ(12px) rotateX(30deg); }
+        .pyr-base {
+          position: absolute;
+          width: 34px; height: 34px;
+          background: rgba(251,146,60,0.06);
+          border: 1px solid rgba(251,146,60,0.15);
+          transform: rotateX(90deg) translateZ(-15px);
+        }
+
+        @keyframes gridGlowPulse {
+          0%, 100% { opacity: 0.5; }
+          50%      { opacity: 1; }
+        }
+
+        /* ═══════ CONTENT LAYOUT ═══════ */
+        .h3-content {
           position: relative;
           z-index: 2;
-          padding-left: 10%;
-          padding-right: 52%;
-          padding-top: 80px;
           width: 100%;
+          max-width: 1820px;
+          margin: 0 auto;
+          padding: 110px 2.5% 0;
+          display: flex;
+          align-items: center;
+          justify-content: space-around;
+          gap: 28px;
         }
-        .hs-hi {
+
+        /* ═══════ SIDEBAR PANELS (Left & Right) ═══════ */
+        .h3-side-panel {
+          flex: 0 0 240px;
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+          position: relative;
+          z-index: 10;
+        }
+        .h3-side-card {
+          background: rgba(15, 23, 42, 0.65);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 16px;
+          padding: 15px 16px;
+          backdrop-filter: blur(14px);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+          transition: all 0.3s ease;
+          position: relative;
+          overflow: hidden;
+        }
+        .h3-side-card:hover {
+          border-color: rgba(129, 140, 248, 0.5);
+          transform: translateY(-4px) scale(1.02);
+          box-shadow: 0 14px 35px rgba(99, 102, 241, 0.25);
+          background: rgba(15, 23, 42, 0.88);
+        }
+        .h3-side-card::before {
+          content: '';
+          position: absolute;
+          top: 0; left: 0; right: 0;
+          height: 2px;
+          background: linear-gradient(90deg, #6366f1, #a78bfa, #34d399);
+          opacity: 0.7;
+        }
+        .h3-side-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 8px;
+        }
+        .h3-side-title {
+          font-size: 0.8rem;
+          font-weight: 700;
+          color: #f1f5f9;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+        }
+        .h3-side-badge {
+          font-size: 0.65rem;
+          font-weight: 600;
+          padding: 3px 8px;
+          border-radius: 99px;
+          background: rgba(99, 102, 241, 0.15);
+          color: #a5b4fc;
+          border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+        .h3-side-badge.green {
+          background: rgba(52, 211, 153, 0.15);
+          color: #6ee7b7;
+          border-color: rgba(52, 211, 153, 0.3);
+        }
+        .h3-side-desc {
+          font-size: 0.73rem;
+          color: #94a3b8;
+          line-height: 1.55;
+          margin-bottom: 10px;
+        }
+        .h3-side-metrics {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.68rem;
+          color: #cbd5e1;
+          padding-top: 8px;
+          border-top: 1px dashed rgba(255, 255, 255, 0.08);
+        }
+        .h3-metric-val {
+          color: #60a5fa;
+          font-weight: 700;
+        }
+
+        /* ═══════ LEFT TEXT ═══════ */
+        .h3-text {
+          flex: 1;
+          max-width: 540px;
+        }
+
+        /* Status badge */
+        .h3-status {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 6px 14px;
+          border-radius: 99px;
+          background: rgba(52,211,153,0.08);
+          border: 1px solid rgba(52,211,153,0.2);
+          font-size: 0.75rem;
+          font-weight: 600;
+          color: #6ee7b7;
+          letter-spacing: 0.04em;
+          margin-bottom: 20px;
+        }
+        .h3-status-dot {
+          width: 7px; height: 7px;
+          border-radius: 50%;
+          background: #34d399;
+          box-shadow: 0 0 8px #34d399;
+          animation: statusPulse 2s ease-in-out infinite;
+        }
+        @keyframes statusPulse {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50%      { opacity: 0.4; transform: scale(0.75); }
+        }
+
+        .h3-hi {
           font-size: 1.1rem;
           color: #818cf8;
           font-style: italic;
           margin-bottom: 6px;
           letter-spacing: 0.04em;
         }
-        .hs-name-block {
+
+        /* ── Name with glitch ── */
+        .h3-name-block {
           display: flex;
           flex-direction: column;
-          line-height: 1.0;
+          line-height: 1.05;
           margin-bottom: 20px;
-          gap: 0px;
+          gap: 2px;
         }
-        .hs-name-white {
-          font-size: clamp(1.8rem, 3.5vw, 4.2rem);
+        .h3-name-line1 {
+          font-family: 'Syne', sans-serif;
+          font-size: clamp(2rem, 4vw, 4.5rem);
           font-weight: 900;
           color: #f1f5f9;
           letter-spacing: -0.03em;
-          font-family: 'Syne', sans-serif;
+          position: relative;
         }
-        .hs-name-grad {
-          font-size: clamp(1.8rem, 3.5vw, 4.2rem);
+        .h3-name-line1:hover {
+          animation: glitch 0.3s ease forwards;
+        }
+        .h3-name-line2 {
+          font-family: 'Syne', sans-serif;
+          font-size: clamp(2rem, 4vw, 4.5rem);
           font-weight: 900;
           letter-spacing: -0.03em;
-          font-family: 'Syne', sans-serif;
-          background: linear-gradient(90deg, #60a5fa, #a78bfa, #c084fc);
+          background: linear-gradient(135deg, #60a5fa, #a78bfa, #c084fc, #818cf8);
+          background-size: 200% auto;
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
+          animation: gradientShift 4s ease infinite;
         }
-        .hs-role {
+        .h3-name-line2:hover {
+          animation: gradientShift 4s ease infinite, glitch 0.3s ease forwards;
+        }
+        @keyframes gradientShift {
+          0%, 100% { background-position: 0% center; }
+          50%      { background-position: 100% center; }
+        }
+        @keyframes glitch {
+          0%   { transform: translate(0); }
+          20%  { transform: translate(-3px, 2px); }
+          40%  { transform: translate(3px, -1px); }
+          60%  { transform: translate(-1px, -2px); }
+          80%  { transform: translate(2px, 1px); }
+          100% { transform: translate(0); }
+        }
+
+        /* Role */
+        .h3-role {
           display: flex;
           align-items: center;
-          gap: 9px;
-          padding-left: 14px;
-          border-left: 3px solid #6366f1;
-          margin-bottom: 16px;
+          gap: 12px;
+          margin-bottom: 18px;
         }
-        .hs-role-icon { color: #a5b4fc; font-size: 1rem; }
-        .hs-typewriter {
+        .h3-role-divider {
+          width: 3px;
+          height: 22px;
+          border-radius: 2px;
+          background: linear-gradient(to bottom, #6366f1, #a78bfa);
+          flex-shrink: 0;
+        }
+        .h3-typewriter {
           font-size: 1rem;
           color: #c7d2fe;
           font-weight: 500;
           letter-spacing: 0.02em;
         }
-        .hs-bio {
+
+        .h3-bio {
           color: #94a3b8;
           font-size: 0.92rem;
           line-height: 1.85;
-          max-width: 460px;
+          max-width: 480px;
           margin-bottom: 28px;
         }
-        .hs-btns {
+
+        /* ── Neon glow CTA buttons ── */
+        .h3-btns {
           display: flex;
           gap: 14px;
-          margin-bottom: 26px;
+          margin-bottom: 28px;
           flex-wrap: wrap;
         }
-        .hs-btn-primary {
+        .h3-btn-glow {
+          position: relative;
           display: inline-flex;
           align-items: center;
           gap: 8px;
-          padding: 12px 24px;
+          padding: 13px 26px;
           background: linear-gradient(135deg, #6366f1, #8b5cf6);
           color: white;
-          border-radius: 10px;
+          border-radius: 12px;
           text-decoration: none;
           font-weight: 600;
           font-size: 0.85rem;
           letter-spacing: 0.02em;
-          transition: all 0.3s ease;
-          box-shadow: 0 4px 18px rgba(99,102,241,0.4);
+          transition: all 0.35s ease;
+          box-shadow:
+            0 4px 18px rgba(99,102,241,0.4),
+            0 0 0 0 rgba(99,102,241,0);
+          overflow: hidden;
+          z-index: 1;
         }
-        .hs-btn-primary:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 8px 28px rgba(99,102,241,0.6);
+        .h3-btn-bg {
+          position: absolute;
+          inset: -2px;
+          border-radius: 14px;
+          background: linear-gradient(135deg, #6366f1, #8b5cf6, #c084fc, #6366f1);
+          background-size: 300% 300%;
+          animation: neonShift 3s ease infinite;
+          z-index: -1;
+          opacity: 0;
+          transition: opacity 0.35s;
+          filter: blur(8px);
         }
-        .hs-btn-outline {
+        .h3-btn-glow:hover {
+          transform: translateY(-4px);
+          box-shadow:
+            0 8px 30px rgba(99,102,241,0.6),
+            0 0 40px rgba(139,92,246,0.3);
+        }
+        .h3-btn-glow:hover .h3-btn-bg {
+          opacity: 1;
+        }
+        @keyframes neonShift {
+          0%, 100% { background-position: 0% 50%; }
+          50%      { background-position: 100% 50%; }
+        }
+
+        .h3-btn-outline {
           display: inline-flex;
           align-items: center;
           gap: 8px;
-          padding: 12px 24px;
-          background: transparent;
+          padding: 13px 26px;
+          background: rgba(255,255,255,0.03);
           color: white;
-          border: 1.5px solid rgba(255,255,255,0.22);
-          border-radius: 10px;
+          border: 1.5px solid rgba(255,255,255,0.15);
+          border-radius: 12px;
           text-decoration: none;
           font-weight: 600;
           font-size: 0.85rem;
           letter-spacing: 0.02em;
-          transition: all 0.3s ease;
-          backdrop-filter: blur(6px);
+          transition: all 0.35s ease;
+          backdrop-filter: blur(8px);
         }
-        .hs-btn-outline:hover {
-          border-color: rgba(255,255,255,0.5);
-          background: rgba(255,255,255,0.05);
-          transform: translateY(-3px);
+        .h3-btn-outline:hover {
+          border-color: rgba(139,92,246,0.5);
+          background: rgba(139,92,246,0.08);
+          transform: translateY(-4px);
+          box-shadow: 0 8px 25px rgba(139,92,246,0.15);
         }
-        .hs-socials { display: flex; gap: 12px; }
-        .hs-social {
-          width: 42px; height: 42px;
+
+        /* ── Socials ── */
+        .h3-socials { display: flex; gap: 12px; }
+        .h3-social {
+          width: 44px; height: 44px;
           display: flex;
           align-items: center;
           justify-content: center;
-          border: 1.5px solid rgba(255,255,255,0.12);
-          border-radius: 9px;
+          border: 1.5px solid rgba(255,255,255,0.1);
+          border-radius: 10px;
           color: #94a3b8;
           text-decoration: none;
           background: rgba(255,255,255,0.03);
-          transition: all 0.3s ease;
+          transition: all 0.35s ease;
+          backdrop-filter: blur(6px);
         }
-        .hs-social:hover {
+        .h3-social:hover {
           border-color: #818cf8;
-          color: #818cf8;
-          transform: translateY(-3px);
-          box-shadow: 0 5px 15px rgba(99,102,241,0.3);
-          background: rgba(99,102,241,0.08);
+          color: #a5b4fc;
+          transform: translateY(-4px) scale(1.05);
+          box-shadow: 0 6px 20px rgba(99,102,241,0.35);
+          background: rgba(99,102,241,0.1);
         }
-        .hs-scroll {
+
+        /* ═══════ RIGHT — 3D CARD ═══════ */
+        .h3-card-area {
+          flex: 0 0 auto;
+          width: 420px;
+          position: relative;
+        }
+        .h3-tilt-wrap {
+          width: 100%;
+          border-radius: 20px;
+        }
+        .h3-card-glass {
+          position: relative;
+          background: rgba(255,255,255,0.04);
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 20px;
+          overflow: hidden;
+          backdrop-filter: blur(16px);
+          box-shadow:
+            0 20px 60px rgba(0,0,0,0.4),
+            inset 0 1px 0 rgba(255,255,255,0.06);
+        }
+        .h3-card-shine {
           position: absolute;
-          bottom: 28px;
+          top: 0; left: -100%;
+          width: 100%; height: 100%;
+          background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.03) 45%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.03) 55%, transparent 60%);
+          animation: cardShine 6s ease-in-out infinite;
+        }
+        @keyframes cardShine {
+          0%, 100% { left: -100%; }
+          50%      { left: 100%; }
+        }
+
+        .h3-card-inner {
+          padding: 0;
+        }
+
+        /* Card header */
+        .h3-card-header {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 14px 20px;
+          border-bottom: 1px solid rgba(255,255,255,0.06);
+          background: rgba(0,0,0,0.2);
+        }
+        .h3-dots {
+          display: flex; gap: 6px;
+        }
+        .h3-dots span {
+          width: 10px; height: 10px;
+          border-radius: 50%;
+        }
+        .dot-r { background: #ef4444; }
+        .dot-y { background: #eab308; }
+        .dot-g { background: #22c55e; }
+        .h3-card-filename {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.72rem;
+          color: #64748b;
+          letter-spacing: 0.02em;
+        }
+
+        /* Code block */
+        .h3-code {
+          padding: 20px 22px;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.78rem;
+          line-height: 2;
+        }
+        .h3-code-line {
+          white-space: nowrap;
+        }
+        .h3-code-line.indent {
+          padding-left: 22px;
+        }
+        .h3-code-line.mt {
+          margin-top: 8px;
+        }
+        .ck { color: #c084fc; }  /* keyword */
+        .cv { color: #60a5fa; }  /* variable */
+        .co { color: #64748b; }  /* operator/punctuation */
+        .cp { color: #34d399; }  /* property */
+        .cs { color: #fbbf24; }  /* string */
+        .cb { color: #94a3b8; }  /* brace */
+
+        /* Terminal */
+        .h3-terminal {
+          padding: 14px 22px 18px;
+          border-top: 1px solid rgba(255,255,255,0.06);
+          background: rgba(0,0,0,0.15);
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.75rem;
+          display: flex;
+          align-items: center;
+          gap: 4px;
+        }
+        .h3-term-prompt {
+          color: #34d399;
+          font-weight: 700;
+        }
+        .h3-term-cmd {
+          color: #94a3b8;
+        }
+        .h3-term-cursor {
+          width: 7px; height: 14px;
+          background: #6366f1;
+          border-radius: 1px;
+          animation: cursorBlink 1s step-end infinite;
+          margin-left: 2px;
+        }
+        @keyframes cursorBlink {
+          0%, 100% { opacity: 1; }
+          50%      { opacity: 0; }
+        }
+
+        /* ═══════ TECH ORBIT ═══════ */
+        .h3-orbit {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 520px;
+          height: 520px;
+          transform: translate(-50%, -50%);
+          pointer-events: none;
+        }
+        .h3-orbit-icon {
+          position: absolute;
+          width: 36px; height: 36px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 10px;
+          background: rgba(15,23,42,0.8);
+          border: 1px solid rgba(255,255,255,0.08);
+          color: var(--orbit-color);
+          font-size: 1rem;
+          box-shadow: 0 0 15px rgba(99,102,241,0.1);
+          animation: orbitSpin 15s linear infinite;
+          animation-delay: var(--orbit-delay);
+          top: 50%; left: 50%;
+          margin: -18px;
+          backdrop-filter: blur(8px);
+        }
+        @keyframes orbitSpin {
+          0%   { transform: rotate(0deg)   translateX(260px) rotate(0deg); }
+          100% { transform: rotate(360deg) translateX(260px) rotate(-360deg); }
+        }
+
+        /* ═══════ SCROLL INDICATOR ═══════ */
+        .h3-scroll {
+          position: absolute;
+          bottom: 30px;
           left: 50%;
           transform: translateX(-50%);
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 7px;
+          gap: 8px;
+          z-index: 3;
+        }
+        .h3-scroll-line {
+          width: 1px;
+          height: 35px;
+          background: linear-gradient(to bottom, transparent, rgba(99,102,241,0.5));
+          animation: scrollLinePulse 2s ease-in-out infinite;
+        }
+        .h3-scroll span {
+          font-size: 0.65rem;
+          font-weight: 700;
+          letter-spacing: 0.2em;
           color: #475569;
-          font-size: 0.7rem;
-          letter-spacing: 0.1em;
-          text-transform: uppercase;
-          z-index: 2;
-          animation: scrollBounce 2.2s ease-in-out infinite;
         }
-        .hs-scroll-mouse {
-          width: 22px; height: 34px;
-          border: 2px solid rgba(99,102,241,0.5);
-          border-radius: 99px;
+        .h3-scroll-chevrons {
           display: flex;
-          justify-content: center;
-          padding-top: 5px;
+          flex-direction: column;
+          align-items: center;
+          gap: 3px;
         }
-        .hs-scroll-dot {
-          width: 4px; height: 6px;
-          background: #6366f1;
-          border-radius: 99px;
-          animation: dotScroll 2.2s ease-in-out infinite;
+        .h3-chevron {
+          width: 10px; height: 10px;
+          border-right: 2px solid rgba(99,102,241,0.5);
+          border-bottom: 2px solid rgba(99,102,241,0.5);
+          transform: rotate(45deg);
+          animation: chevronBounce 2s ease-in-out infinite;
         }
-        @keyframes scrollBounce {
-          0%,100% { transform: translateX(-50%) translateY(0); }
-          50%      { transform: translateX(-50%) translateY(5px); }
+        .h3-chevron:nth-child(2) { animation-delay: 0.15s; opacity: 0.6; }
+        .h3-chevron:nth-child(3) { animation-delay: 0.3s; opacity: 0.3; }
+        @keyframes scrollLinePulse {
+          0%, 100% { opacity: 0.5; height: 35px; }
+          50%      { opacity: 1; height: 45px; }
         }
-        @keyframes dotScroll {
-          0%   { opacity: 1; transform: translateY(0); }
-          100% { opacity: 0; transform: translateY(10px); }
+        @keyframes chevronBounce {
+          0%, 100% { transform: rotate(45deg) translateY(0); }
+          50%      { transform: rotate(45deg) translateY(5px); }
+        }
+
+        /* ═══════ RESPONSIVE ═══════ */
+        @media (max-width: 1380px) {
+          .h3-side-panel { display: none; }
+          .h3-content { justify-content: space-between; padding: 100px 5% 0; }
+        }
+
+        @media (max-width: 1100px) {
+          .h3-card-area { width: 360px; }
+          .h3-orbit { width: 440px; height: 440px; }
+          .h3-orbit-icon { animation-name: orbitSpinSm; }
+          @keyframes orbitSpinSm {
+            0%   { transform: rotate(0deg)   translateX(220px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(220px) rotate(-360deg); }
+          }
         }
 
         @media (max-width: 960px) {
-          .hs-content { padding-right: 10%; padding-left: 6%; }
-          .hs-planet-wrap { opacity: 0.2; right: -10%; width: 50vw; }
-          .hs-bio { max-width: 100%; }
+          .h3-content {
+            flex-direction: column;
+            text-align: center;
+            padding-top: 120px;
+          }
+          .h3-text { max-width: 100%; }
+          .h3-status { margin: 0 auto 20px; }
+          .h3-bio { max-width: 100%; margin-left: auto; margin-right: auto; }
+          .h3-btns { justify-content: center; }
+          .h3-socials { justify-content: center; }
+          .h3-role { justify-content: center; }
+          .h3-card-area {
+            width: 380px;
+            order: -1;
+            margin-bottom: 10px;
+          }
+          .h3-orbit { display: none; }
+          .h3-shapes { opacity: 0.3; }
+          .h3-name-line1, .h3-name-line2 {
+            font-size: clamp(1.8rem, 6vw, 3rem);
+          }
         }
+
         @media (max-width: 600px) {
-          .hs-planet-wrap { display: none; }
-          .hs-content { padding: 90px 5% 0; }
-          .hs-name-white, .hs-name-grad { font-size: clamp(1.6rem, 8vw, 2.5rem); }
+          .hero3d { min-height: 100vh; }
+          .h3-content { padding: 100px 5% 0; gap: 24px; }
+          .h3-card-area { width: 100%; max-width: 340px; }
+          .h3-name-line1, .h3-name-line2 {
+            font-size: clamp(1.5rem, 8vw, 2.2rem);
+          }
+          .h3-shapes { display: none; }
+          .h3-grid-floor { display: none; }
+          .h3-aurora-wrap { opacity: 0.2; }
+          .h3-scroll { bottom: 16px; }
+          .h3-btns { flex-direction: column; width: 100%; }
+          .h3-btn-glow, .h3-btn-outline { width: 100%; justify-content: center; }
+        }
+
+        @media (max-width: 400px) {
+          .h3-card-area { max-width: 100%; }
+          .h3-terminal { flex-wrap: wrap; }
         }
       `}</style>
     </section>

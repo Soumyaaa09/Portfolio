@@ -44,14 +44,14 @@ function Contact() {
               <div className="ct-info-icon"><FaMapMarkerAlt size={16} /></div>
               <div>
                 <p className="ct-info-label">Location</p>
-                <p className="ct-info-val">Odisha, India</p>
+                <p className="ct-info-val">Bhubaneswar, Odisha, India</p>
               </div>
             </div>
             <div className="ct-info-item">
               <div className="ct-info-icon"><FaPhone size={16} /></div>
               <div>
-                <p className="ct-info-label">Availability</p>
-                <p className="ct-info-val">Open to Opportunities</p>
+                <p className="ct-info-label">Phone</p>
+                <a href="tel:+917644878544" className="ct-info-val">+91 7644878544</a>
               </div>
             </div>
           </div>

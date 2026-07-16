@@ -1,18 +1,18 @@
 import { motion } from "framer-motion";
-import { FaGraduationCap, FaRocket, FaCode, FaCloud } from "react-icons/fa";
+import { FaGraduationCap, FaRocket, FaCode, FaCloud, FaPython, FaUsers } from "react-icons/fa";
 
 const stats = [
-  { value: "10+", label: "Projects Built" },
-  { value: "3+", label: "Technologies" },
+  { value: "5+", label: "Projects Built" },
+  { value: "10+", label: "Technologies" },
   { value: "2027", label: "Expected Grad" },
   { value: "100%", label: "Commitment" },
 ];
 
 const highlights = [
-  { icon: <FaCode />,       color: "#60a5fa", title: "Full Stack Dev",     desc: "Building end-to-end web apps with React, Node & MongoDB." },
-  { icon: <FaCloud />,      color: "#a78bfa", title: "Cloud Enthusiast",   desc: "Learning AWS services and cloud architecture patterns." },
-  { icon: <FaRocket />,     color: "#34d399", title: "Fast Learner",       desc: "Quickly adapting to new tools, frameworks and workflows." },
-  { icon: <FaGraduationCap />, color: "#fb923c", title: "BCA Student",    desc: "Centurion University, expected graduation 2027." },
+  { icon: <FaCloud />,      color: "#a78bfa", title: "Cloud & IoT",       desc: "Three-tier cloud architecture, MQTT protocols & IoT data pipelines." },
+  { icon: <FaPython />,     color: "#60a5fa", title: "Python & Scripting", desc: "Backend logic, automation, Flask, FastAPI & DevOps workflows." },
+  { icon: <FaCode />,       color: "#34d399", title: "Full Stack Dev",    desc: "React.js, Supabase, REST APIs & responsive web interfaces." },
+  { icon: <FaUsers />,      color: "#fb923c", title: "Team Player",       desc: "Group projects, systematic debugging & technical communication." },
 ];
 
 function About() {
@@ -42,13 +42,13 @@ function About() {
 
           <p className="ab-bio">
             I'm a passionate BCA student at <strong>Centurion University of Technology
-            and Management</strong>, driven by a love for building modern web applications
-            and cloud technologies.
+            and Management</strong>, with hands-on experience building backend systems,
+            cloud-connected IoT applications, and automated data pipelines using Python.
           </p>
           <p className="ab-bio">
-            I thrive in dynamic environments where I can apply my programming skills,
-            learn continuously, and contribute meaningfully to real-world projects.
-            My goal is to become a skilled <strong>Cloud Engineer</strong> and full-stack developer.
+            I'm seeking an entry-level <strong>Cloud Engineer</strong> role to apply my
+            scripting, systems, and problem-solving skills toward building scalable,
+            secure cloud infrastructure.
           </p>
 
           {/* Stats row */}
@@ -75,15 +75,15 @@ function About() {
               <div className="ab-tl-dot" />
               <div>
                 <p className="ab-tl-title">BCA — Centurion University</p>
-                <p className="ab-tl-sub">2024 – 2027</p>
+                <p className="ab-tl-sub">2024 – May 2027</p>
               </div>
             </div>
             <div className="ab-tl-line" />
             <div className="ab-tl-item">
               <div className="ab-tl-dot ab-tl-dot2" />
               <div>
-                <p className="ab-tl-title">12th — K.V Danapur Cantt</p>
-                <p className="ab-tl-sub">2022</p>
+                <p className="ab-tl-title">12th — K.V Danapur Cantt, Bihar</p>
+                <p className="ab-tl-sub">May 2022</p>
               </div>
             </div>
           </div>
@@ -127,7 +127,7 @@ function About() {
           >
             <span className="ab-learning-dot" />
             <span className="ab-learning-text">
-              Currently learning: <strong>AWS Cloud Practitioner & Docker</strong>
+              Currently learning: <strong>AWS Cloud, Docker & Infrastructure-as-Code</strong>
             </span>
           </motion.div>
         </motion.div>

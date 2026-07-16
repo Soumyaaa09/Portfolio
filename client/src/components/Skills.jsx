@@ -1,43 +1,45 @@
 import { motion } from "framer-motion";
 import {
-  FaHtml5, FaCss3Alt, FaJs, FaReact, FaNodeJs,
+  FaHtml5, FaCss3Alt, FaJs, FaReact, FaPython,
   FaGitAlt, FaAws, FaDatabase,
 } from "react-icons/fa";
-import { SiExpress, SiMongodb, SiTailwindcss, SiLinux } from "react-icons/si";
+import { SiFlask, SiFastapi, SiSupabase, SiPostgresql, SiTailwindcss, SiMqtt, SiVercel, SiRender } from "react-icons/si";
 
 const categories = [
   {
-    label: "Frontend",
-    color: "#60a5fa",
-    glow: "rgba(96,165,250,0.2)",
-    skills: [
-      { name: "HTML5",      icon: <FaHtml5 />,      level: 95 },
-      { name: "CSS3",       icon: <FaCss3Alt />,     level: 90 },
-      { name: "JavaScript", icon: <FaJs />,          level: 82 },
-      { name: "React.js",   icon: <FaReact />,       level: 80 },
-      { name: "Tailwind",   icon: <SiTailwindcss />, level: 75 },
-    ],
-  },
-  {
-    label: "Backend",
+    label: "Cloud & Infrastructure",
     color: "#a78bfa",
     glow: "rgba(167,139,250,0.2)",
     skills: [
-      { name: "Node.js",    icon: <FaNodeJs />,   level: 75 },
-      { name: "Express.js", icon: <SiExpress />,  level: 72 },
-      { name: "MongoDB",    icon: <SiMongodb />,  level: 70 },
-      { name: "SQL",        icon: <FaDatabase />, level: 60 },
+      { name: "AWS Cloud",        icon: <FaAws />,          level: 65 },
+      { name: "Supabase",         icon: <SiSupabase />,     level: 72 },
+      { name: "PostgreSQL",       icon: <SiPostgresql />,   level: 68 },
+      { name: "MySQL",            icon: <FaDatabase />,     level: 65 },
+      { name: "MQTT / IoT",       icon: <SiMqtt />,         level: 60 },
     ],
   },
   {
-    label: "Tools & Cloud",
+    label: "Programming & Scripting",
+    color: "#60a5fa",
+    glow: "rgba(96,165,250,0.2)",
+    skills: [
+      { name: "Python",           icon: <FaPython />,       level: 85 },
+      { name: "Flask",            icon: <SiFlask />,        level: 75 },
+      { name: "FastAPI",          icon: <SiFastapi />,      level: 72 },
+      { name: "JavaScript",       icon: <FaJs />,           level: 78 },
+      { name: "C++",              icon: <FaDatabase />,     level: 60 },
+    ],
+  },
+  {
+    label: "Web Dev & Tools",
     color: "#34d399",
     glow: "rgba(52,211,153,0.18)",
     skills: [
-      { name: "Git & GitHub",     icon: <FaGitAlt />, level: 85 },
-      { name: "AWS Basics",       icon: <FaAws />,    level: 60 },
-      { name: "Linux",            icon: <SiLinux />,  level: 55 },
-      { name: "Cloud Computing",  icon: <FaAws />,    level: 58 },
+      { name: "React.js",         icon: <FaReact />,        level: 80 },
+      { name: "HTML / CSS",       icon: <FaHtml5 />,        level: 90 },
+      { name: "Tailwind CSS",     icon: <SiTailwindcss />,  level: 75 },
+      { name: "Git & GitHub",     icon: <FaGitAlt />,       level: 85 },
+      { name: "Vercel / Render",  icon: <SiVercel />,       level: 70 },
     ],
   },
 ];
