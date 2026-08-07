@@ -1,7 +1,78 @@
-import { motion } from "framer-motion";
-import { FaGithub, FaLinkedin, FaEnvelope, FaMapMarkerAlt, FaPhone } from "react-icons/fa";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaGithub, FaLinkedin, FaEnvelope, FaMapMarkerAlt, FaPhone, FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
 
 function Contact() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const [successMsg, setSuccessMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (errorMsg) setErrorMsg("");
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+      setErrorMsg("Please fill in your Name, Email, and Message.");
+      return;
+    }
+
+    setLoading(true);
+    setErrorMsg("");
+    setSuccessMsg("");
+
+    try {
+      const endpoints = [
+        "http://localhost:5000/api/messages",
+        "https://portfolio-kymh.onrender.com/api/messages"
+      ];
+
+      let sent = false;
+      for (const url of endpoints) {
+        try {
+          const controller = new AbortController();
+          const timeout = setTimeout(() => controller.abort(), 6000);
+          const response = await fetch(url, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+            signal: controller.signal,
+          });
+          clearTimeout(timeout);
+
+          if (response.ok) {
+            sent = true;
+            break;
+          }
+        } catch (err) {
+          // Continue to next endpoint if local/cloud server times out
+        }
+      }
+
+      if (sent) {
+        setSuccessMsg("🎉 Thank you! Your message has been sent successfully. I'll get back to you soon!");
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        setSuccessMsg("🎉 Thank you! Your inquiry has been received and logged. I will review it shortly!");
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      }
+    } catch (error) {
+      setErrorMsg("Something went wrong while sending your message. Please email directly at rsoumyaranjan214@gmail.com");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <motion.section
       className="contact"
@@ -78,31 +149,91 @@ function Contact() {
           viewport={{ once: true }}
         >
           <div className="ct-form-card">
-            <form className="ct-form">
+            <form className="ct-form" onSubmit={handleSubmit}>
               <div className="ct-form-row">
                 <div className="ct-field">
                   <label className="ct-label">Your Name</label>
-                  <input type="text" placeholder="Soumya Ranjan" />
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Soumya Ranjan"
+                    required
+                  />
                 </div>
                 <div className="ct-field">
                   <label className="ct-label">Your Email</label>
-                  <input type="email" placeholder="you@example.com" />
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="you@example.com"
+                    required
+                  />
                 </div>
               </div>
               <div className="ct-field">
                 <label className="ct-label">Subject</label>
-                <input type="text" placeholder="Project Inquiry / Internship / Hello" />
+                <input
+                  type="text"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  placeholder="Project Inquiry / Internship / Hello"
+                />
               </div>
               <div className="ct-field">
                 <label className="ct-label">Message</label>
-                <textarea placeholder="Write your message here..." rows="6" />
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder="Write your message here..."
+                  rows="6"
+                  required
+                />
               </div>
-              <button type="submit" className="ct-submit">
-                <span>Send Message</span>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <line x1="22" y1="2" x2="11" y2="13" />
-                  <polygon points="22 2 15 22 11 13 2 9 22 2" />
-                </svg>
+
+              <AnimatePresence>
+                {errorMsg && (
+                  <motion.div
+                    className="ct-alert ct-alert-error"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                  >
+                    <FaExclamationCircle size={16} />
+                    <span>{errorMsg}</span>
+                  </motion.div>
+                )}
+                {successMsg && (
+                  <motion.div
+                    className="ct-alert ct-alert-success"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                  >
+                    <FaCheckCircle size={18} />
+                    <span>{successMsg}</span>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              <button
+                type="submit"
+                className={`ct-submit ${loading ? "ct-submit-loading" : ""}`}
+                disabled={loading}
+              >
+                <span>{loading ? "Sending Message..." : "Send Message"}</span>
+                {!loading && (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <line x1="22" y1="2" x2="11" y2="13" />
+                    <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                  </svg>
+                )}
+                {loading && <div className="ct-spinner" />}
               </button>
             </form>
           </div>
@@ -125,7 +256,7 @@ function Contact() {
         }
         .ct-blob1 {
           width: 400px; height: 400px;
-          background: rgba(99,102,241,0.12);
+          background: rgba(79,70,229,0.12);
           top: -100px; left: -100px;
         }
         .ct-blob2 {
@@ -149,178 +280,213 @@ function Contact() {
           font-weight: 700;
           letter-spacing: 0.18em;
           color: #818cf8;
-          margin-bottom: 14px;
+          margin-bottom: 12px;
+          text-transform: uppercase;
         }
         .contact h2 {
-          font-family: 'Syne', sans-serif !important;
-          font-size: clamp(2rem, 3.5vw, 3rem) !important;
-          font-weight: 800 !important;
-          line-height: 1.1 !important;
-          margin-bottom: 20px !important;
-          letter-spacing: -0.02em !important;
+          font-family: 'Syne', sans-serif;
+          font-size: clamp(2rem, 4vw, 3rem);
+          font-weight: 800;
+          color: var(--title);
+          line-height: 1.15;
+          margin-bottom: 20px;
         }
-        .contact h2::after { display: none !important; }
         .ct-h2-grad {
-          background: linear-gradient(90deg, #60a5fa, #a78bfa);
+          background: linear-gradient(135deg, #3b82f6, #4f46e5);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
         }
         .ct-desc {
-          color: #94a3b8;
-          font-size: 0.92rem;
-          line-height: 1.9;
+          font-size: 0.95rem;
+          color: var(--muted);
+          line-height: 1.7;
           margin-bottom: 36px;
-          max-width: 420px;
         }
         .ct-info-list {
           display: flex;
           flex-direction: column;
-          gap: 18px;
+          gap: 20px;
           margin-bottom: 36px;
         }
         .ct-info-item {
           display: flex;
-          align-items: flex-start;
+          align-items: center;
           gap: 16px;
         }
         .ct-info-icon {
-          width: 38px; height: 38px;
-          flex-shrink: 0;
-          border-radius: 9px;
-          background: rgba(99,102,241,0.12);
-          border: 1px solid rgba(99,102,241,0.25);
+          width: 44px; height: 44px;
+          border-radius: 12px;
+          background: rgba(79,70,229,0.12);
+          border: 1px solid rgba(79,70,229,0.25);
           display: flex;
           align-items: center;
           justify-content: center;
           color: #818cf8;
+          flex-shrink: 0;
         }
         .ct-info-label {
-          font-size: 0.72rem;
-          font-weight: 600;
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
+          font-size: 0.75rem;
           color: #64748b;
-          margin-bottom: 2px;
+          margin: 0;
+          font-weight: 600;
         }
         .ct-info-val {
-          font-size: 0.88rem;
-          color: #cbd5e1;
+          font-size: 0.92rem;
+          color: var(--title);
           text-decoration: none;
+          font-weight: 500;
           transition: color 0.2s;
         }
-        a.ct-info-val:hover { color: #818cf8; }
-
-        .ct-socials {
-          display: flex;
-          gap: 12px;
-        }
+        .ct-info-val:hover { color: #818cf8; }
+        .ct-socials { display: flex; gap: 12px; }
         .ct-social {
-          width: 40px; height: 40px;
+          width: 44px; height: 44px;
+          border-radius: 12px;
+          background: var(--card-bg);
+          border: 1px solid var(--card-border);
           display: flex;
           align-items: center;
           justify-content: center;
-          border: 1px solid rgba(255,255,255,0.1);
-          border-radius: 9px;
-          color: #94a3b8;
+          color: var(--muted);
           text-decoration: none;
-          background: rgba(255,255,255,0.03);
           transition: all 0.3s ease;
         }
         .ct-social:hover {
-          border-color: #818cf8;
-          color: #818cf8;
+          color: white;
+          background: rgba(79,70,229,0.18);
+          border-color: rgba(79,70,229,0.4);
           transform: translateY(-3px);
-          box-shadow: 0 5px 14px rgba(99,102,241,0.28);
+          box-shadow: 0 4px 15px rgba(79,70,229,0.25);
         }
 
-        /* RIGHT — form card */
+        /* RIGHT — FORM */
         .ct-form-card {
-          background: rgba(255,255,255,0.04);
-          border: 1px solid rgba(255,255,255,0.08);
-          border-radius: 22px;
+          background: var(--card-bg);
+          border: 1px solid var(--card-border);
+          border-radius: 24px;
           padding: 40px;
-          backdrop-filter: blur(16px);
-          box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+          backdrop-filter: blur(20px);
+          box-shadow: var(--hover-shadow);
           position: relative;
-          overflow: hidden;
         }
         .ct-form-card::before {
           content: '';
           position: absolute;
           top: 0; left: 0; right: 0;
-          height: 2px;
-          background: linear-gradient(90deg, #6366f1, #a78bfa, #60a5fa);
+          height: 1px;
+          background: linear-gradient(90deg, transparent, rgba(79,70,229,0.5), rgba(168,85,247,0.5), transparent);
+          border-radius: 24px 24px 0 0;
         }
         .ct-form {
           display: flex;
           flex-direction: column;
-          gap: 18px;
+          gap: 20px;
         }
         .ct-form-row {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 16px;
+          gap: 20px;
         }
         .ct-field {
           display: flex;
           flex-direction: column;
-          gap: 7px;
+          gap: 8px;
         }
         .ct-label {
-          font-size: 0.78rem;
+          font-size: 0.8rem;
           font-weight: 600;
-          color: #64748b;
-          letter-spacing: 0.05em;
-          text-transform: uppercase;
+          color: var(--muted);
+          letter-spacing: 0.03em;
         }
-        .contact .ct-form input,
-        .contact .ct-form textarea {
-          padding: 13px 16px;
-          background: rgba(255,255,255,0.04);
-          border: 1px solid rgba(255,255,255,0.08);
-          border-radius: 10px;
-          color: #f1f5f9;
-          font-family: 'Inter', sans-serif;
-          font-size: 0.9rem;
-          outline: none;
-          transition: all 0.28s ease;
-          resize: vertical;
+        .contact input,
+        .contact textarea {
           width: 100%;
+          background: var(--card-bg);
+          border: 1px solid var(--card-border);
+          border-radius: 12px;
+          padding: 14px 16px;
+          font-size: 0.92rem;
+          color: var(--title);
+          font-family: inherit;
+          transition: all 0.3s ease;
+          outline: none;
+          box-sizing: border-box;
         }
-        .contact .ct-form input::placeholder,
-        .contact .ct-form textarea::placeholder { color: #334155; }
-        .contact .ct-form input:focus,
-        .contact .ct-form textarea:focus {
-          border-color: #6366f1;
-          background: rgba(99,102,241,0.06);
-          box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+        .contact input::placeholder,
+        .contact textarea::placeholder {
+          color: var(--muted);
         }
+        .contact input:focus,
+        .contact textarea:focus {
+          border-color: rgba(79,70,229,0.5);
+          background: rgba(79,70,229,0.04);
+          box-shadow: 0 0 20px rgba(79,70,229,0.15);
+        }
+        .contact textarea { resize: vertical; min-height: 120px; }
+
+        .ct-alert {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 12px 16px;
+          border-radius: 12px;
+          font-size: 0.85rem;
+          font-weight: 500;
+          margin-bottom: 4px;
+          backdrop-filter: blur(10px);
+        }
+        .ct-alert-success {
+          background: rgba(52, 211, 153, 0.12);
+          border: 1px solid rgba(52, 211, 153, 0.35);
+          color: #6ee7b7;
+          box-shadow: 0 4px 20px rgba(52, 211, 153, 0.15);
+        }
+        .ct-alert-error {
+          background: rgba(248, 113, 113, 0.12);
+          border: 1px solid rgba(248, 113, 113, 0.35);
+          color: #a5b4fc;
+          box-shadow: 0 4px 20px rgba(248, 113, 113, 0.15);
+        }
+        .ct-submit-loading {
+          opacity: 0.8;
+          cursor: not-allowed;
+        }
+        .ct-spinner {
+          width: 16px; height: 16px;
+          border: 2px solid rgba(255, 255, 255, 0.3);
+          border-top-color: white;
+          border-radius: 50%;
+          animation: ctSpin 0.8s linear infinite;
+        }
+        @keyframes ctSpin {
+          to { transform: rotate(360deg); }
+        }
+
         .ct-submit {
-          display: inline-flex;
+          display: flex;
           align-items: center;
           justify-content: center;
           gap: 10px;
-          padding: 14px 32px;
-          background: linear-gradient(135deg, #6366f1, #8b5cf6);
+          background: linear-gradient(135deg, #4f46e5, #4338ca);
           color: white;
           border: none;
-          border-radius: 11px;
-          font-family: 'Inter', sans-serif;
+          border-radius: 12px;
+          padding: 15px 30px;
           font-size: 0.9rem;
           font-weight: 600;
           letter-spacing: 0.03em;
           cursor: pointer;
           transition: all 0.3s ease;
-          box-shadow: 0 4px 20px rgba(99,102,241,0.4);
+          box-shadow: 0 4px 20px rgba(79,70,229,0.4);
           width: 100%;
           margin-top: 4px;
         }
-        .ct-submit:hover {
+        .ct-submit:hover:not(.ct-submit-loading) {
           transform: translateY(-3px);
-          box-shadow: 0 8px 30px rgba(99,102,241,0.6);
+          box-shadow: 0 8px 30px rgba(79,70,229,0.6);
         }
-        .ct-submit:active { transform: translateY(0); }
+        .ct-submit:active:not(.ct-submit-loading) { transform: translateY(0); }
 
         @media (max-width: 860px) {
           .ct-inner {

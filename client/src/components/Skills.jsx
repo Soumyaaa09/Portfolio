@@ -8,7 +8,7 @@ import { SiFlask, SiFastapi, SiSupabase, SiPostgresql, SiTailwindcss, SiMqtt, Si
 const categories = [
   {
     label: "Cloud & Infrastructure",
-    color: "#a78bfa",
+    color: "#6366f1",
     glow: "rgba(167,139,250,0.2)",
     skills: [
       { name: "AWS Cloud",        icon: <FaAws />,          level: 65 },
@@ -20,7 +20,7 @@ const categories = [
   },
   {
     label: "Programming & Scripting",
-    color: "#60a5fa",
+    color: "#a5b4fc",
     glow: "rgba(96,165,250,0.2)",
     skills: [
       { name: "Python",           icon: <FaPython />,       level: 85 },
@@ -149,7 +149,7 @@ function Skills() {
         }
         .sk-blob1 {
           width: 420px; height: 420px;
-          background: rgba(99,102,241,0.1);
+          background: rgba(79,70,229,0.1);
           top: 0; right: 0;
         }
         .sk-blob2 {
@@ -179,13 +179,13 @@ function Skills() {
         }
         .skills h2::after { display: none !important; }
         .sk-grad {
-          background: linear-gradient(90deg, #60a5fa, #a78bfa);
+          background: linear-gradient(90deg, #a5b4fc, #6366f1);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
         }
         .sk-desc {
-          color: #94a3b8;
+          color: var(--muted);
           font-size: 0.92rem;
           max-width: 500px;
           line-height: 1.8;
@@ -202,8 +202,8 @@ function Skills() {
 
         /* Category card */
         .sk-cat-card {
-          background: rgba(255,255,255,0.04);
-          border: 1px solid rgba(255,255,255,0.07);
+          background: var(--card-bg);
+          border: 1px solid var(--card-border);
           border-radius: 20px;
           padding: 28px;
           backdrop-filter: blur(12px);
@@ -230,7 +230,7 @@ function Skills() {
           pointer-events: none;
         }
         .sk-cat-card:hover {
-          border-color: rgba(255,255,255,0.14);
+          border-color: #4f46e5;
           transform: translateY(-5px);
           box-shadow: 0 16px 40px rgba(0,0,0,0.3);
         }
@@ -283,13 +283,13 @@ function Skills() {
         .sk-skill-name {
           font-size: 0.82rem;
           font-weight: 500;
-          color: #cbd5e1;
+          color: var(--muted);
           white-space: nowrap;
         }
         .sk-bar-wrap {
           flex: 1;
           height: 5px;
-          background: rgba(255,255,255,0.07);
+          background: var(--card-bg);
           border-radius: 99px;
           overflow: hidden;
         }

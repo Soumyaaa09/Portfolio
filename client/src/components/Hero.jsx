@@ -249,7 +249,7 @@ function Hero() {
             transitionSpeed={800}
             glareEnable={true}
             glareMaxOpacity={0.15}
-            glareColor="#8b5cf6"
+            glareColor="#4338ca"
             glarePosition="all"
             className="h3-tilt-wrap"
           >
@@ -427,8 +427,8 @@ function Hero() {
         .cube-face {
           position: absolute;
           width: 40px; height: 40px;
-          border: 1.5px solid rgba(99,102,241,0.35);
-          background: rgba(99,102,241,0.06);
+          border: 1.5px solid rgba(79,70,229,0.35);
+          background: rgba(79,70,229,0.06);
           backdrop-filter: blur(2px);
         }
         .cube-face.front  { transform: translateZ(20px); }
@@ -470,7 +470,7 @@ function Hero() {
           width: 28px; height: 28px;
           top: 75%; left: 15%;
           border-radius: 50%;
-          background: radial-gradient(circle at 35% 30%, rgba(168,85,247,0.5), rgba(99,102,241,0.2) 60%, transparent 80%);
+          background: radial-gradient(circle at 35% 30%, rgba(168,85,247,0.5), rgba(79,70,229,0.2) 60%, transparent 80%);
           box-shadow: 0 0 20px rgba(168,85,247,0.3), inset -4px -4px 8px rgba(0,0,0,0.3);
           animation: sphereBob 6s ease-in-out infinite;
         }
@@ -555,28 +555,28 @@ function Hero() {
           z-index: 10;
         }
         .h3-side-card {
-          background: rgba(15, 23, 42, 0.65);
-          border: 1px solid rgba(255, 255, 255, 0.08);
+          background: var(--card-bg);
+          border: 1px solid var(--card-border);
           border-radius: 16px;
           padding: 15px 16px;
-          backdrop-filter: blur(14px);
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+          backdrop-filter: none;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
           transition: all 0.3s ease;
           position: relative;
           overflow: hidden;
         }
         .h3-side-card:hover {
-          border-color: rgba(129, 140, 248, 0.5);
+          border-color: #3b82f6;
           transform: translateY(-4px) scale(1.02);
-          box-shadow: 0 14px 35px rgba(99, 102, 241, 0.25);
-          background: rgba(15, 23, 42, 0.88);
+          box-shadow: 0 14px 35px rgba(59, 130, 246, 0.1);
+          background: var(--card-bg);
         }
         .h3-side-card::before {
           content: '';
           position: absolute;
           top: 0; left: 0; right: 0;
           height: 2px;
-          background: linear-gradient(90deg, #6366f1, #a78bfa, #34d399);
+          background: linear-gradient(90deg, #4f46e5, #6366f1, #34d399);
           opacity: 0.7;
         }
         .h3-side-header {
@@ -588,7 +588,7 @@ function Hero() {
         .h3-side-title {
           font-size: 0.8rem;
           font-weight: 700;
-          color: #f1f5f9;
+          color: var(--title);
           display: flex;
           align-items: center;
           gap: 6px;
@@ -598,9 +598,9 @@ function Hero() {
           font-weight: 600;
           padding: 3px 8px;
           border-radius: 99px;
-          background: rgba(99, 102, 241, 0.15);
+          background: rgba(79,70,229, 0.15);
           color: #a5b4fc;
-          border: 1px solid rgba(99, 102, 241, 0.3);
+          border: 1px solid rgba(79,70,229, 0.3);
         }
         .h3-side-badge.green {
           background: rgba(52, 211, 153, 0.15);
@@ -609,7 +609,7 @@ function Hero() {
         }
         .h3-side-desc {
           font-size: 0.73rem;
-          color: #94a3b8;
+          color: var(--muted);
           line-height: 1.55;
           margin-bottom: 10px;
         }
@@ -619,12 +619,12 @@ function Hero() {
           justify-content: space-between;
           font-family: 'JetBrains Mono', monospace;
           font-size: 0.68rem;
-          color: #cbd5e1;
+          color: #64748b;
           padding-top: 8px;
-          border-top: 1px dashed rgba(255, 255, 255, 0.08);
+          border-top: 1px dashed var(--card-border);
         }
         .h3-metric-val {
-          color: #60a5fa;
+          color: #a5b4fc;
           font-weight: 700;
         }
 
@@ -663,7 +663,7 @@ function Hero() {
 
         .h3-hi {
           font-size: 1.1rem;
-          color: #818cf8;
+          color: #4f46e5;
           font-style: italic;
           margin-bottom: 6px;
           letter-spacing: 0.04em;
@@ -681,7 +681,7 @@ function Hero() {
           font-family: 'Syne', sans-serif;
           font-size: clamp(2rem, 4vw, 4.5rem);
           font-weight: 900;
-          color: #f1f5f9;
+          color: var(--title);
           letter-spacing: -0.03em;
           position: relative;
         }
@@ -693,7 +693,7 @@ function Hero() {
           font-size: clamp(2rem, 4vw, 4.5rem);
           font-weight: 900;
           letter-spacing: -0.03em;
-          background: linear-gradient(135deg, #60a5fa, #a78bfa, #c084fc, #818cf8);
+          background: linear-gradient(135deg, #3b82f6, #6366f1, #8b5cf6, #3b82f6);
           background-size: 200% auto;
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
@@ -727,18 +727,18 @@ function Hero() {
           width: 3px;
           height: 22px;
           border-radius: 2px;
-          background: linear-gradient(to bottom, #6366f1, #a78bfa);
+          background: linear-gradient(to bottom, #4f46e5, #6366f1);
           flex-shrink: 0;
         }
         .h3-typewriter {
           font-size: 1rem;
-          color: #c7d2fe;
+          color: #4338ca;
           font-weight: 500;
           letter-spacing: 0.02em;
         }
 
         .h3-bio {
-          color: #94a3b8;
+          color: var(--muted);
           font-size: 0.92rem;
           line-height: 1.85;
           max-width: 480px;
@@ -758,7 +758,7 @@ function Hero() {
           align-items: center;
           gap: 8px;
           padding: 13px 26px;
-          background: linear-gradient(135deg, #6366f1, #8b5cf6);
+          background: linear-gradient(135deg, #4f46e5, #4338ca);
           color: white;
           border-radius: 12px;
           text-decoration: none;
@@ -767,8 +767,8 @@ function Hero() {
           letter-spacing: 0.02em;
           transition: all 0.35s ease;
           box-shadow:
-            0 4px 18px rgba(99,102,241,0.4),
-            0 0 0 0 rgba(99,102,241,0);
+            0 4px 18px rgba(79,70,229,0.4),
+            0 0 0 0 rgba(79,70,229,0);
           overflow: hidden;
           z-index: 1;
         }
@@ -776,7 +776,7 @@ function Hero() {
           position: absolute;
           inset: -2px;
           border-radius: 14px;
-          background: linear-gradient(135deg, #6366f1, #8b5cf6, #c084fc, #6366f1);
+          background: linear-gradient(135deg, #3b82f6, #4f46e5);
           background-size: 300% 300%;
           animation: neonShift 3s ease infinite;
           z-index: -1;
@@ -787,7 +787,7 @@ function Hero() {
         .h3-btn-glow:hover {
           transform: translateY(-4px);
           box-shadow:
-            0 8px 30px rgba(99,102,241,0.6),
+            0 8px 30px rgba(79,70,229,0.6),
             0 0 40px rgba(139,92,246,0.3);
         }
         .h3-btn-glow:hover .h3-btn-bg {
@@ -803,9 +803,9 @@ function Hero() {
           align-items: center;
           gap: 8px;
           padding: 13px 26px;
-          background: rgba(255,255,255,0.03);
-          color: white;
-          border: 1.5px solid rgba(255,255,255,0.15);
+          background: var(--card-bg);
+          color: var(--title);
+          border: 1.5px solid #e2e8f0;
           border-radius: 12px;
           text-decoration: none;
           font-weight: 600;
@@ -828,20 +828,20 @@ function Hero() {
           display: flex;
           align-items: center;
           justify-content: center;
-          border: 1.5px solid rgba(255,255,255,0.1);
+          border: 1.5px solid #e2e8f0;
           border-radius: 10px;
-          color: #94a3b8;
+          color: var(--muted);
           text-decoration: none;
-          background: rgba(255,255,255,0.03);
+          background: var(--card-bg);
           transition: all 0.35s ease;
           backdrop-filter: blur(6px);
         }
         .h3-social:hover {
-          border-color: #818cf8;
+          border-color: #4f46e5;
           color: #a5b4fc;
           transform: translateY(-4px) scale(1.05);
-          box-shadow: 0 6px 20px rgba(99,102,241,0.35);
-          background: rgba(99,102,241,0.1);
+          box-shadow: 0 6px 20px rgba(79,70,229,0.35);
+          background: rgba(79,70,229,0.1);
         }
 
         /* ═══════ RIGHT — 3D CARD ═══════ */
@@ -856,14 +856,12 @@ function Hero() {
         }
         .h3-card-glass {
           position: relative;
-          background: rgba(255,255,255,0.04);
-          border: 1px solid rgba(255,255,255,0.08);
+          background: var(--card-bg);
+          border: 1px solid var(--card-border);
           border-radius: 20px;
           overflow: hidden;
-          backdrop-filter: blur(16px);
-          box-shadow:
-            0 20px 60px rgba(0,0,0,0.4),
-            inset 0 1px 0 rgba(255,255,255,0.06);
+          backdrop-filter: none;
+          box-shadow: var(--hover-shadow);
         }
         .h3-card-shine {
           position: absolute;
@@ -887,8 +885,8 @@ function Hero() {
           align-items: center;
           gap: 12px;
           padding: 14px 20px;
-          border-bottom: 1px solid rgba(255,255,255,0.06);
-          background: rgba(0,0,0,0.2);
+          border-bottom: 1px solid var(--card-border);
+          background: var(--bg-card-h);
         }
         .h3-dots {
           display: flex; gap: 6px;
@@ -897,7 +895,7 @@ function Hero() {
           width: 10px; height: 10px;
           border-radius: 50%;
         }
-        .dot-r { background: #ef4444; }
+        .dot-r { background: #6366f1; }
         .dot-y { background: #eab308; }
         .dot-g { background: #22c55e; }
         .h3-card-filename {
@@ -923,18 +921,18 @@ function Hero() {
         .h3-code-line.mt {
           margin-top: 8px;
         }
-        .ck { color: #c084fc; }  /* keyword */
-        .cv { color: #60a5fa; }  /* variable */
-        .co { color: #64748b; }  /* operator/punctuation */
-        .cp { color: #34d399; }  /* property */
-        .cs { color: #fbbf24; }  /* string */
-        .cb { color: #94a3b8; }  /* brace */
+        .ck { color: #6366f1; }  /* keyword */
+        .cv { color: #3b82f6; }  /* variable */
+        .co { color: var(--title); }  /* operator/punctuation */
+        .cp { color: #10b981; }  /* property */
+        .cs { color: #d97706; }  /* string */
+        .cb { color: var(--title); }  /* brace */
 
         /* Terminal */
         .h3-terminal {
           padding: 14px 22px 18px;
-          border-top: 1px solid rgba(255,255,255,0.06);
-          background: rgba(0,0,0,0.15);
+          border-top: 1px solid var(--card-border);
+          background: var(--bg-card-h);
           font-family: 'JetBrains Mono', monospace;
           font-size: 0.75rem;
           display: flex;
@@ -946,11 +944,11 @@ function Hero() {
           font-weight: 700;
         }
         .h3-term-cmd {
-          color: #94a3b8;
+          color: var(--muted);
         }
         .h3-term-cursor {
           width: 7px; height: 14px;
-          background: #6366f1;
+          background: #4f46e5;
           border-radius: 1px;
           animation: cursorBlink 1s step-end infinite;
           margin-left: 2px;
@@ -977,11 +975,11 @@ function Hero() {
           align-items: center;
           justify-content: center;
           border-radius: 10px;
-          background: rgba(15,23,42,0.8);
+          background: rgba(255, 255, 255,0.8);
           border: 1px solid rgba(255,255,255,0.08);
           color: var(--orbit-color);
           font-size: 1rem;
-          box-shadow: 0 0 15px rgba(99,102,241,0.1);
+          box-shadow: 0 0 15px rgba(79,70,229,0.1);
           animation: orbitSpin 15s linear infinite;
           animation-delay: var(--orbit-delay);
           top: 50%; left: 50%;
@@ -1008,14 +1006,14 @@ function Hero() {
         .h3-scroll-line {
           width: 1px;
           height: 35px;
-          background: linear-gradient(to bottom, transparent, rgba(99,102,241,0.5));
+          background: linear-gradient(to bottom, transparent, rgba(79,70,229,0.5));
           animation: scrollLinePulse 2s ease-in-out infinite;
         }
         .h3-scroll span {
           font-size: 0.65rem;
           font-weight: 700;
           letter-spacing: 0.2em;
-          color: #475569;
+          color: var(--muted);
         }
         .h3-scroll-chevrons {
           display: flex;
@@ -1025,8 +1023,8 @@ function Hero() {
         }
         .h3-chevron {
           width: 10px; height: 10px;
-          border-right: 2px solid rgba(99,102,241,0.5);
-          border-bottom: 2px solid rgba(99,102,241,0.5);
+          border-right: 2px solid rgba(79,70,229,0.5);
+          border-bottom: 2px solid rgba(79,70,229,0.5);
           transform: rotate(45deg);
           animation: chevronBounce 2s ease-in-out infinite;
         }

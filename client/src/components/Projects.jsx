@@ -115,7 +115,7 @@ const tagColors = {
   "Full Stack": {
     bg: "rgba(167,139,250,0.15)",
     border: "rgba(167,139,250,0.35)",
-    text: "#a78bfa",
+    text: "#6366f1",
     glow: "rgba(167,139,250,0.20)",
   },
   Cloud: {
@@ -127,7 +127,7 @@ const tagColors = {
   Frontend: {
     bg: "rgba(96,165,250,0.12)",
     border: "rgba(96,165,250,0.3)",
-    text: "#60a5fa",
+    text: "#a5b4fc",
     glow: "rgba(96,165,250,0.18)",
   },
   "AI / ML": {
@@ -137,10 +137,10 @@ const tagColors = {
     glow: "rgba(244,63,94,0.18)",
   },
   Personal: {
-    bg: "rgba(99,102,241,0.15)",
-    border: "rgba(99,102,241,0.35)",
+    bg: "rgba(79,70,229,0.15)",
+    border: "rgba(79,70,229,0.35)",
     text: "#818cf8",
-    glow: "rgba(99,102,241,0.18)",
+    glow: "rgba(79,70,229,0.18)",
   },
 };
 
@@ -502,7 +502,7 @@ function Projects() {
                 tiltMaxAngleY={6}
                 glareEnable={true}
                 glareMaxOpacity={0.12}
-                glareColor="#6366f1"
+                glareColor="#4f46e5"
                 glarePosition="all"
                 glareBorderRadius="14px"
                 className="pj-featured-tilt"

@@ -78,9 +78,9 @@ function Background() {
           pointer-events: none;
           overflow: hidden;
           background:
-            radial-gradient(ellipse 80% 50% at 50% 0%, rgba(99,102,241,0.06) 0%, transparent 60%),
+            radial-gradient(ellipse 80% 50% at 50% 0%, rgba(79,70,229,0.02) 0%, transparent 60%),
             radial-gradient(ellipse 60% 40% at 80% 100%, rgba(139,92,246,0.05) 0%, transparent 50%),
-            linear-gradient(180deg, #020617 0%, #04091c 40%, #0a0f23 70%, #020617 100%);
+            var(--bg-grad);
         }
 
         /* ═══ MESH BLOBS ═══ */
@@ -98,34 +98,34 @@ function Background() {
         }
         .bg-m1 {
           width: 450px; height: 450px;
-          background: radial-gradient(circle, rgba(99,102,241,0.25) 0%, transparent 70%);
+          background: radial-gradient(circle, rgba(79,70,229,0.05) 0%, transparent 70%);
           top: -5%; right: 5%;
           animation-duration: 16s;
         }
         .bg-m2 {
           width: 380px; height: 380px;
-          background: radial-gradient(circle, rgba(139,92,246,0.2) 0%, transparent 70%);
+          background: radial-gradient(circle, rgba(139,92,246,0.04) 0%, transparent 70%);
           top: 30%; left: -5%;
           animation-duration: 13s;
           animation-delay: -4s;
         }
         .bg-m3 {
           width: 320px; height: 320px;
-          background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%);
+          background: radial-gradient(circle, rgba(59,130,246,0.03) 0%, transparent 70%);
           top: 55%; right: 15%;
           animation-duration: 18s;
           animation-delay: -8s;
         }
         .bg-m4 {
           width: 280px; height: 280px;
-          background: radial-gradient(circle, rgba(168,85,247,0.15) 0%, transparent 70%);
+          background: radial-gradient(circle, rgba(168,85,247,0.03) 0%, transparent 70%);
           top: 75%; left: 20%;
           animation-duration: 15s;
           animation-delay: -6s;
         }
         .bg-m5 {
           width: 350px; height: 350px;
-          background: radial-gradient(circle, rgba(52,211,153,0.08) 0%, transparent 70%);
+          background: radial-gradient(circle, rgba(52,211,153,0.02) 0%, transparent 70%);
           top: 90%; right: 30%;
           animation-duration: 17s;
           animation-delay: -10s;
@@ -154,13 +154,13 @@ function Background() {
         .bg-a1 {
           top: 25%;
           left: -40%;
-          background: linear-gradient(90deg, transparent, rgba(99,102,241,0.3), rgba(139,92,246,0.25), transparent);
+          background: linear-gradient(90deg, transparent, rgba(79,70,229,0.02), rgba(139,92,246,0.05), transparent);
           animation: bgAuroraFlow 10s ease-in-out infinite;
         }
         .bg-a2 {
           top: 65%;
           left: -30%;
-          background: linear-gradient(90deg, transparent, rgba(59,130,246,0.2), rgba(168,85,247,0.15), transparent);
+          background: linear-gradient(90deg, transparent, rgba(59,130,246,0.04), rgba(168,85,247,0.03), transparent);
           animation: bgAuroraFlow 14s ease-in-out infinite reverse;
           animation-delay: -3s;
         }
@@ -208,8 +208,8 @@ function Background() {
         .bg-particle {
           position: absolute;
           border-radius: 50%;
-          background: rgba(139,92,246,0.5);
-          box-shadow: 0 0 6px rgba(139,92,246,0.3), 0 0 12px rgba(99,102,241,0.1);
+          background: rgba(59,130,246,0.15);
+          box-shadow: 0 0 6px rgba(139,92,246,0.3), 0 0 12px rgba(79,70,229,0.1);
           animation: bgParticleFloat ease-in-out infinite;
         }
         @keyframes bgParticleFloat {
@@ -224,7 +224,7 @@ function Background() {
           position: absolute;
           width: 1.5px;
           height: 70px;
-          background: linear-gradient(to bottom, rgba(165,180,252,0.9), transparent);
+          background: linear-gradient(to bottom, rgba(99,102,241,0.2), transparent);
           border-radius: 99px;
           opacity: 0;
         }
@@ -256,8 +256,8 @@ function Background() {
           position: absolute;
           inset: 0;
           background-image:
-            linear-gradient(rgba(99,102,241,0.06) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(99,102,241,0.06) 1px, transparent 1px);
+            linear-gradient(rgba(79,70,229,0.02) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(79,70,229,0.02) 1px, transparent 1px);
           background-size: 80px 80px;
           animation: bgGridScroll 6s linear infinite;
         }

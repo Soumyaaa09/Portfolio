@@ -9,8 +9,8 @@ const stats = [
 ];
 
 const highlights = [
-  { icon: <FaCloud />,      color: "#a78bfa", title: "Cloud & IoT",       desc: "Three-tier cloud architecture, MQTT protocols & IoT data pipelines." },
-  { icon: <FaPython />,     color: "#60a5fa", title: "Python & Scripting", desc: "Backend logic, automation, Flask, FastAPI & DevOps workflows." },
+  { icon: <FaCloud />,      color: "#6366f1", title: "Cloud & IoT",       desc: "Three-tier cloud architecture, MQTT protocols & IoT data pipelines." },
+  { icon: <FaPython />,     color: "#a5b4fc", title: "Python & Scripting", desc: "Backend logic, automation, Flask, FastAPI & DevOps workflows." },
   { icon: <FaCode />,       color: "#34d399", title: "Full Stack Dev",    desc: "React.js, Supabase, REST APIs & responsive web interfaces." },
   { icon: <FaUsers />,      color: "#fb923c", title: "Team Player",       desc: "Group projects, systematic debugging & technical communication." },
 ];
@@ -149,7 +149,7 @@ function About() {
         }
         .ab-blob1 {
           width: 380px; height: 380px;
-          background: rgba(99,102,241,0.1);
+          background: rgba(79,70,229,0.1);
           top: -80px; right: 5%;
         }
         .ab-blob2 {
@@ -185,18 +185,18 @@ function About() {
         }
         .about h2::after { display: none !important; }
         .ab-grad {
-          background: linear-gradient(90deg, #60a5fa, #a78bfa);
+          background: linear-gradient(90deg, #a5b4fc, #6366f1);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
         }
         .ab-bio {
-          color: #94a3b8;
+          color: var(--muted);
           font-size: 0.92rem;
           line-height: 1.9;
           margin-bottom: 14px;
         }
-        .ab-bio strong { color: #c7d2fe; font-weight: 600; }
+        .ab-bio strong { color: #4f46e5; font-weight: 600; }
 
         /* Stats */
         .ab-stats {
@@ -206,24 +206,24 @@ function About() {
           margin: 28px 0 36px;
         }
         .ab-stat {
-          background: rgba(255,255,255,0.04);
-          border: 1px solid rgba(255,255,255,0.07);
+          background: var(--card-bg);
+          border: 1px solid var(--card-border);
           border-radius: 14px;
           padding: 16px 10px;
           text-align: center;
           transition: all 0.3s ease;
         }
         .ab-stat:hover {
-          border-color: rgba(99,102,241,0.35);
+          border-color: #4f46e5;
           transform: translateY(-4px);
-          box-shadow: 0 8px 20px rgba(99,102,241,0.15);
+          box-shadow: 0 8px 20px rgba(79,70,229,0.15);
         }
         .ab-stat-val {
           display: block;
           font-family: 'Syne', sans-serif;
           font-size: 1.4rem;
           font-weight: 800;
-          background: linear-gradient(90deg, #60a5fa, #a78bfa);
+          background: linear-gradient(90deg, #a5b4fc, #6366f1);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
@@ -258,23 +258,23 @@ function About() {
         .ab-tl-dot {
           width: 10px; height: 10px;
           border-radius: 50%;
-          background: #6366f1;
-          box-shadow: 0 0 8px rgba(99,102,241,0.6);
+          background: #4f46e5;
+          box-shadow: 0 0 8px rgba(79,70,229,0.6);
           flex-shrink: 0;
           margin-top: 4px;
         }
-        .ab-tl-dot2 { background: #a78bfa; box-shadow: 0 0 8px rgba(167,139,250,0.6); }
+        .ab-tl-dot2 { background: #6366f1; box-shadow: 0 0 8px rgba(167,139,250,0.6); }
         .ab-tl-line {
           width: 1px;
           height: 20px;
-          background: linear-gradient(to bottom, #6366f1, #a78bfa);
+          background: linear-gradient(to bottom, #4f46e5, #6366f1);
           margin-left: 4px;
           margin-bottom: 8px;
         }
         .ab-tl-title {
           font-size: 0.88rem;
           font-weight: 600;
-          color: #e2e8f0;
+          color: var(--title);
           margin-bottom: 2px;
         }
         .ab-tl-sub {
@@ -290,8 +290,8 @@ function About() {
           margin-bottom: 20px;
         }
         .ab-card {
-          background: rgba(255,255,255,0.04);
-          border: 1px solid rgba(255,255,255,0.07);
+          background: var(--card-bg);
+          border: 1px solid var(--card-border);
           border-radius: 16px;
           padding: 22px 18px;
           display: flex;
@@ -310,15 +310,15 @@ function About() {
           opacity: 0.7;
         }
         .ab-card:hover {
-          border-color: rgba(255,255,255,0.13);
+          border-color: #4f46e5;
           transform: translateY(-5px);
-          box-shadow: 0 12px 32px rgba(0,0,0,0.25);
+          box-shadow: var(--hover-shadow);
         }
         .ab-card-icon {
           width: 38px; height: 38px;
           border-radius: 10px;
-          background: rgba(255,255,255,0.05);
-          border: 1px solid rgba(255,255,255,0.08);
+          background: #f8fafc;
+          border: 1px solid var(--card-border);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -329,7 +329,7 @@ function About() {
           font-family: 'Syne', sans-serif;
           font-size: 0.88rem;
           font-weight: 700;
-          color: #e2e8f0;
+          color: var(--title);
           margin-bottom: 5px;
         }
         .ab-card-desc {
@@ -343,8 +343,8 @@ function About() {
           display: flex;
           align-items: center;
           gap: 10px;
-          background: rgba(52,211,153,0.07);
-          border: 1px solid rgba(52,211,153,0.18);
+          background: #f0fdf4;
+          border: 1px solid #bbf7d0;
           border-radius: 10px;
           padding: 12px 16px;
         }
@@ -362,9 +362,9 @@ function About() {
         }
         .ab-learning-text {
           font-size: 0.82rem;
-          color: #94a3b8;
+          color: var(--muted);
         }
-        .ab-learning-text strong { color: #6ee7b7; font-weight: 600; }
+        .ab-learning-text strong { color: #10b981; font-weight: 600; }
 
         @media (max-width: 860px) {
           .ab-inner { grid-template-columns: 1fr; gap: 48px; }

@@ -1,6 +1,10 @@
 import Particles from "react-tsparticles";
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 
 function ParticlesBackground() {
+  const { theme } = useContext(ThemeContext);
+  const pColor = theme === "dark" ? "#818cf8" : pColor;
   return (
     <Particles
       id="tsparticles"
@@ -15,11 +19,11 @@ function ParticlesBackground() {
 
         particles: {
           color: {
-            value: "#60a5fa",
+            value: pColor,
           },
 
           links: {
-            color: "#60a5fa",
+            color: pColor,
             distance: 150,
             enable: true,
             opacity: 0.3,
@@ -63,5 +67,4 @@ function ParticlesBackground() {
   );
 }
 
-export default ParticlesBackground;
 export default ParticlesBackground;
